@@ -12,7 +12,8 @@ public class Test
     [TestInitialize]
     public void Initialize()
     {
-        _logic = new Api(new ManualDataGeneration()); // dependency injection here
+        //_logic = new Api(new ManualDataGeneration());
+        _logic = new Api(new BogusDataGeneration());
     }
     
     [TestMethod]
