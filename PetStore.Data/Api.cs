@@ -6,13 +6,13 @@ namespace PetStore.Data;
 
 public abstract class Api
 {
-    private List<Customer> _customers;
-    private List<Employee> _employees;
-    private List<Supplier> _suppliers;
-    private List<Product> _products;
-    private List<Invoice> _invoices;
-    private List<CurrentStock> _currentStock;
-    private List<Shipment> _shipments;
+    protected List<Customer> _customers;
+    protected List<Employee> _employees;
+    protected List<Supplier> _suppliers;
+    protected List<Product> _products;
+    protected List<Invoice> _invoices;
+    protected List<CurrentStock> _currentStock;
+    protected List<Shipment> _shipments;
 
     public abstract List<Customer> GetCustomers();
     public abstract List<Employee> GetEmployees();
