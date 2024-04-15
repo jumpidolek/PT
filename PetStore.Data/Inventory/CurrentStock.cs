@@ -2,5 +2,5 @@
 
 public class CurrentStock
 {
-    public Dictionary<Product, int> Products { get; set; }
+    public Dictionary<Product, int> Products { get; set; } = new();
 }
