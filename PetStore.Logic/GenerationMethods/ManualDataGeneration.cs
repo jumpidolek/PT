@@ -6,13 +6,13 @@ namespace PetStore.Logic.GenerationMethods;
 
 public class ManualDataGeneration : IDataGeneration
 {
-    private readonly List<Customer> _customers = [];
-    private readonly List<Employee> _employees = [];
-    private readonly List<Supplier> _suppliers = [];
-    private readonly List<Product> _products = [];
-    private readonly List<Invoice> _invoices = [];
-    private readonly List<Shipment> _shipments = [];
-    private readonly CurrentStock _currentStock = new();
+    private List<Customer> _customers = [];
+    private List<Employee> _employees = [];
+    private List<Supplier> _suppliers = [];
+    private List<Product> _products = [];
+    private List<Invoice> _invoices = [];
+    private List<Shipment> _shipments = [];
+    private CurrentStock _currentStock = new();
     
     public List<Customer> GetCustomers()
     {
@@ -66,7 +66,7 @@ public class ManualDataGeneration : IDataGeneration
         [
             new Customer
             {
-                Id = Guid.Parse("e3b05126-1e59-47ee-80a1-1210e9e0d719"),
+                Id = Guid.Parse("99ff696e-a11c-4064-89c3-5abe881f8a4b"),
                 FirstName = "John",
                 LastName = "Krasinski",
                 Email = "john.krasinki@gmial.com",
@@ -79,7 +79,7 @@ public class ManualDataGeneration : IDataGeneration
 
             new Customer
             {
-                Id = Guid.Parse("a3b05126-1e59-47ee-80a1-1210e9e0d719"),
+                Id = Guid.Parse("fbdce505-f699-4741-a69f-c22d1df89ca0"),
                 FirstName = "Mary",
                 LastName = "Sue",
                 Email = "mary.sue@gmial.com",
@@ -90,6 +90,7 @@ public class ManualDataGeneration : IDataGeneration
                 DeliveryAddress = "2nd Street"
             }
         ];
+        _customers = customers;
     }
 
     public void CreateEmployees()
@@ -123,6 +124,7 @@ public class ManualDataGeneration : IDataGeneration
                 HireDate = new DateOnly(2001, 1, 1)
             }
         ];
+        _employees = employees;
     }
 
     public void CreateSuppliers()
@@ -139,13 +141,14 @@ public class ManualDataGeneration : IDataGeneration
             },
             new Supplier
             {
-            Id = Guid.Parse("f3b05126-1e59-47ee-80a1-1210e9e0d719"),
-            Name = "PetSmart",
-            Email = "petsmart@petsmart.com",
-            Address = "6th Street",
-            Phone = "658961235"
+                Id = Guid.Parse("f3b05126-1e59-47ee-80a1-1210e9e0d719"),
+                Name = "PetSmart",
+                Email = "petsmart@petsmart.com",
+                Address = "6th Street",
+                Phone = "658961235"
             }
         ];
+        _suppliers = suppliers;
     }
 
     public void CreateProducts()
@@ -154,41 +157,30 @@ public class ManualDataGeneration : IDataGeneration
         [
             new Product
             {
-                Id = Guid.Parse("g3b05126-1e59-47ee-80a1-1210e9e0d719"),
+                Id = new Guid("209dbc6e-ed30-424e-91d2-632863233d2f"),
                 Name = "Dog Food",
                 Description = "Dry dog food",
                 Price = 20,
                 Category = Category.Food,
                 Brand = "Pedigree",
                 Suppliers = [
-                    new Supplier{
-                        Id = Guid.Parse("d3b05126-1e59-47ee-80a1-1210e9e0d719"),
-                        Name = "PetCo",
-                        Email = "petco@petco.com",
-                        Address = "5th Street",
-                        Phone = "444444444"
-                    },
+                    _suppliers.First(x => x.Id == Guid.Parse("d3b05126-1e59-47ee-80a1-1210e9e0d719"))
                 ]
             },
             new Product
             {
-                Id = Guid.Parse("h3b05126-1e59-47ee-80a1-1210e9e0d719"),
+                Id = Guid.Parse("e1b05126-1e59-47ee-80a1-1210e9e0d719"),
                 Name = "Cat Food",
                 Description = "Dry cat food",
                 Price = 15,
                 Category = Category.Food,
                 Brand = "Whiskas",
                 Suppliers = [
-                    new Supplier{
-                        Id = Guid.Parse("d3b05126-1e59-47ee-80a1-1210e9e0d719"),
-                        Name = "PetCo",
-                        Email = "petco@petco.com",
-                        Address = "5th Street",
-                        Phone = "444444444"
-                    },
+                    _suppliers.First(x => x.Id == Guid.Parse("d3b05126-1e59-47ee-80a1-1210e9e0d719"))
                 ]
             }
         ];
+        _products = products;
     }
 
     public void CreateInvoices()
@@ -197,25 +189,14 @@ public class ManualDataGeneration : IDataGeneration
         [
             new Invoice
             {
-                Id = Guid.Parse("i3b05126-1e59-47ee-80a1-1210e9e0d719"),
-                Customer = new Customer
-                {
-                    Id = Guid.Parse("e3b05126-1e59-47ee-80a1-1210e9e0d719"),
-                    FirstName = "John",
-                    LastName = "Krasinski",
-                    Email = "john.krasinki@gmial.com",
-                    Phone = "000000000",
-                    Address = "1st Street",
-                    DateOfBirth = new DateOnly(1980, 1, 1),
-                    BillingInformation = "Credit Card",
-                    DeliveryAddress = "1st Street"
-                },
+                Id = Guid.Parse("e2b05126-1e59-47ee-80a1-1210e9e0d719"),
+                Customer = _customers.First(x => x.Id == Guid.Parse("99ff696e-a11c-4064-89c3-5abe881f8a4b")),
                 Order = new Order
                 {
-                    Id = Guid.Parse("j3b05126-1e59-47ee-80a1-1210e9e0d719"),
+                    Id = Guid.Parse("e4b05126-1e59-47ee-80a1-1210e9e0d719"),
                     Products = new Dictionary<Product, int>()
                     {
-                        {_products.First(x=> x.Id == Guid.Parse("g3b05126-1e59-47ee-80a1-1210e9e0d719")), 5},
+                        { _products.First(x=> x.Id == Guid.Parse("209dbc6e-ed30-424e-91d2-632863233d2f")), 5 },
                     },
                     PromoCode = "aaa",
                     ShippingCost = 10,
@@ -223,6 +204,7 @@ public class ManualDataGeneration : IDataGeneration
                 }
             }
         ];
+        _invoices = invoices;
     }
 
     public void CreateShipments()
@@ -231,14 +213,15 @@ public class ManualDataGeneration : IDataGeneration
         [
             new Shipment
             {
-                Id = Guid.Parse("k3b05126-1e59-47ee-80a1-1210e9e0d719"),
+                Id = Guid.Parse("e5b05126-1e59-47ee-80a1-1210e9e0d719"),
                 Products = new Dictionary<Product, int>()
                 {
-                    { _products.First(x=> x.Id == Guid.Parse("g3b05126-1e59-47ee-80a1-1210e9e0d719")), 5 },
+                    { _products.First(x=> x.Id == Guid.Parse("209dbc6e-ed30-424e-91d2-632863233d2f")), 5 },
                 },
                 Supplier = new Supplier(),
             }
         ];
+        _shipments = shipments;
     }
 
     public void CreateCurrentStock()
@@ -247,8 +230,9 @@ public class ManualDataGeneration : IDataGeneration
         {
             Products = new Dictionary<Product, int>()
             {
-                {_products.First(x=> x.Id == Guid.Parse("g3b05126-1e59-47ee-80a1-1210e9e0d719")), 5 },
+                { _products.First(x=> x.Id == Guid.Parse("209dbc6e-ed30-424e-91d2-632863233d2f")), 5 },
             },
         };
+        _currentStock = currentStock;
     }
 }
