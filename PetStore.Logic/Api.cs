@@ -1,11 +1,23 @@
 using PetStore.Data.Events;
 using PetStore.Data.Inventory;
 using PetStore.Data.Users;
+using PetStore.Logic.GenerationMethods;
 
 namespace PetStore.Logic;
 
 public class Api : Data.Api
 {
+    public Api(IDataGeneration dataGeneration)
+    {
+        _customers = dataGeneration.GetCustomers();
+        _employees = dataGeneration.GetEmployees();
+        _suppliers = dataGeneration.GetSuppliers();
+        _products = dataGeneration.GetProducts();
+        _invoices = dataGeneration.GetInvoices();
+        _shipments = dataGeneration.GetShipments();
+        _currentStock = dataGeneration.GetCurrentStock();
+    }
+
     public override List<Customer> GetCustomers()
     {
         return _customers;
