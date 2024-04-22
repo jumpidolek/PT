@@ -70,18 +70,27 @@ public class Api : Data.Api
         if (_products.Exists(x => x.Id == product.Id))
             throw new ArgumentException("Product already exists");
         _products.Add(product);
+        _currentStock.Products.Add(product, 0);
     }
     public override void AddInvoice(Invoice invoice)
     {
         if (_invoices.Exists(x => x.Id == invoice.Id)) 
             throw new ArgumentException("Invoice already exists");
         _invoices.Add(invoice);
+        foreach (var product in invoice.Order.Products)
+        {
+            _currentStock.Products[product.Key] -= product.Value;
+        }
     }
     public override void AddShipment(Shipment shipment)
     {
         if (_shipments.Exists(x => x.Id == shipment.Id)) 
             throw new ArgumentException("Shipment already exists");
         _shipments.Add(shipment);
+        foreach (var product in shipment.Products)
+        {
+            _currentStock.Products[product.Key] += product.Value;
+        }
     }
 
     public override void RemoveCustomer(Guid customerId)

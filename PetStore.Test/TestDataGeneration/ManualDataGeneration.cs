@@ -1,8 +1,9 @@
 ﻿using PetStore.Data.Events;
 using PetStore.Data.Inventory;
 using PetStore.Data.Users;
+using PetStore.Logic.GenerationMethods;
 
-namespace PetStore.Logic.GenerationMethods;
+namespace PetStore.Test.TestDataGeneration;
 
 public class ManualDataGeneration : IDataGeneration
 {
@@ -13,6 +14,17 @@ public class ManualDataGeneration : IDataGeneration
     private List<Invoice> _invoices = [];
     private List<Shipment> _shipments = [];
     private CurrentStock _currentStock = new();
+    
+    public ManualDataGeneration()
+    {
+        CreateCustomers();
+        CreateEmployees();
+        CreateSuppliers();
+        CreateProducts();
+        CreateInvoices();
+        CreateShipments();
+        CreateCurrentStock();
+    }
     
     public List<Customer> GetCustomers()
     {
@@ -48,19 +60,8 @@ public class ManualDataGeneration : IDataGeneration
     {
         return _currentStock;
     }
-    
-    public ManualDataGeneration()
-    {
-        CreateCustomers();
-        CreateEmployees();
-        CreateSuppliers();
-        CreateProducts();
-        CreateInvoices();
-        CreateShipments();
-        CreateCurrentStock();
-    }
 
-    public void CreateCustomers()
+    private void CreateCustomers()
     {
         List<Customer> customers =
         [
@@ -93,7 +94,7 @@ public class ManualDataGeneration : IDataGeneration
         _customers = customers;
     }
 
-    public void CreateEmployees()
+    private void CreateEmployees()
     {
         List<Employee> employees =
         [
@@ -127,7 +128,7 @@ public class ManualDataGeneration : IDataGeneration
         _employees = employees;
     }
 
-    public void CreateSuppliers()
+    private void CreateSuppliers()
     {
         List<Supplier> suppliers =
         [
@@ -151,7 +152,7 @@ public class ManualDataGeneration : IDataGeneration
         _suppliers = suppliers;
     }
 
-    public void CreateProducts()
+    private void CreateProducts()
     {
         List<Product> products =
         [
@@ -183,7 +184,7 @@ public class ManualDataGeneration : IDataGeneration
         _products = products;
     }
 
-    public void CreateInvoices()
+    private void CreateInvoices()
     {
         List<Invoice> invoices =
         [
@@ -207,7 +208,7 @@ public class ManualDataGeneration : IDataGeneration
         _invoices = invoices;
     }
 
-    public void CreateShipments()
+    private void CreateShipments()
     {
         List<Shipment> shipments =
         [
@@ -224,7 +225,7 @@ public class ManualDataGeneration : IDataGeneration
         _shipments = shipments;
     }
 
-    public void CreateCurrentStock()
+    private void CreateCurrentStock()
     {
         var currentStock = new CurrentStock
         {

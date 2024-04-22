@@ -2,8 +2,9 @@
 using PetStore.Data.Events;
 using PetStore.Data.Inventory;
 using PetStore.Data.Users;
+using PetStore.Logic.GenerationMethods;
 
-namespace PetStore.Logic.GenerationMethods;
+namespace PetStore.Test.TestDataGeneration;
 
 public class BogusDataGeneration : IDataGeneration
 {
@@ -14,6 +15,17 @@ public class BogusDataGeneration : IDataGeneration
     private List<Invoice> _invoices = [];
     private List<Shipment> _shipments = [];
     private CurrentStock _currentStock = new();
+    
+    public BogusDataGeneration()
+    {
+        CreateCustomers();
+        CreateEmployees();
+        CreateSuppliers();
+        CreateProducts();
+        CreateInvoices();
+        CreateShipments();
+        CreateCurrentStock();
+    }
     
     public List<Customer> GetCustomers()
     {
@@ -50,24 +62,13 @@ public class BogusDataGeneration : IDataGeneration
         return _currentStock;
     }
     
-    public BogusDataGeneration()
-    {
-        CreateCustomers();
-        CreateEmployees();
-        CreateSuppliers();
-        CreateProducts();
-        CreateInvoices();
-        CreateShipments();
-        CreateCurrentStock();
-    }
-    
-    string[] names = new[] {"Anna", "Hanna", "Joanna", "Barbara", "Karolina"};
-    string[] lastNames = new[] {"Nowak", "Kowalski", "Wiśniewski", "Wójcik", "Kowalczyk"};
-    string[] emails = new[] {"gosia@gmail.com", "franek@yahoo.com", "barok@outlook.com", "arbuz@protonmail.com", "kieszonkowcy@aol.com"};
-    string[] phoneNumbers = new[] {"123456789", "987654321", "456123789", "789456123", "321654987"};
-    string[] billingInformation = new[] {"Credit Card", "PayPal", "Bank Transfer", "Cash", "Klarna"};
+    private string[] names = new[] {"Anna", "Hanna", "Joanna", "Barbara", "Karolina"};
+    private string[] lastNames = new[] {"Nowak", "Kowalski", "Wiśniewski", "Wójcik", "Kowalczyk"};
+    private string[] emails = new[] {"gosia@gmail.com", "franek@yahoo.com", "barok@outlook.com", "arbuz@protonmail.com", "kieszonkowcy@aol.com"};
+    private string[] phoneNumbers = new[] {"123456789", "987654321", "456123789", "789456123", "321654987"};
+    private string[] billingInformation = new[] {"Credit Card", "PayPal", "Bank Transfer", "Cash", "Klarna"};
 
-    public void CreateCustomers()
+    private void CreateCustomers()
     {
         var customers = new Faker<Customer>()
             .RuleFor(c => c.Id, _ => Guid.NewGuid())
@@ -82,11 +83,11 @@ public class BogusDataGeneration : IDataGeneration
         _customers = customers;
     }
     
-    string[] positions = new[] {"Manager", "Salesman", "Accountant", "HR", "IT"};
-    double[] salaries = new[] {5000.0, 4000, 3000, 2000, 1000};
-    string[] departments = new[] {"Sales", "Marketing", "Finance", "IT", "HR"};
+    private string[] positions = new[] {"Manager", "Salesman", "Accountant", "HR", "IT"};
+    private double[] salaries = new[] {5000.0, 4000, 3000, 2000, 1000};
+    private string[] departments = new[] {"Sales", "Marketing", "Finance", "IT", "HR"};
 
-    public void CreateEmployees()
+    private void CreateEmployees()
     {
         var employees = new Faker<Employee>()
             .RuleFor(e => e.Id, _ => Guid.NewGuid())
@@ -103,9 +104,9 @@ public class BogusDataGeneration : IDataGeneration
         _employees = employees;
     }
     
-    string[] _companyNames = new[] {"PetShop", "PetWorld", "PetLand", "PetLovers", "PetParadise"};
+    private string[] _companyNames = new[] {"PetShop", "PetWorld", "PetLand", "PetLovers", "PetParadise"};
 
-    public void CreateSuppliers()
+    private void CreateSuppliers()
     {
         var suppliers = new Faker<Supplier>()
             .RuleFor(s => s.Id, _ => Guid.NewGuid())
@@ -116,7 +117,7 @@ public class BogusDataGeneration : IDataGeneration
         _suppliers = suppliers;
     }
 
-    public void CreateProducts()
+    private void CreateProducts()
     {
         var products = new Faker<Product>()
             .RuleFor(p => p.Id, _ => Guid.NewGuid())
@@ -131,7 +132,7 @@ public class BogusDataGeneration : IDataGeneration
         _products = products;
     }
 
-    public void CreateInvoices()
+    private void CreateInvoices()
     {
         var invoices = new Faker<Invoice>()
             .RuleFor(o => o.Id, _ => Guid.NewGuid())
@@ -149,7 +150,7 @@ public class BogusDataGeneration : IDataGeneration
         _invoices = invoices;
     }
 
-    public void CreateShipments()
+    private void CreateShipments()
     {
         var shipments = new Faker<Shipment>()
             .RuleFor(s => s.Id, _ => Guid.NewGuid())
@@ -159,13 +160,11 @@ public class BogusDataGeneration : IDataGeneration
         _shipments = shipments;
     }
 
-    public void CreateCurrentStock()
+    private void CreateCurrentStock()
     {
         var currentStock = new Faker<CurrentStock>()
             .RuleFor(s => s.Products, f => new Dictionary<Product, int> {{GetProducts()[1], 1}})
             .Generate();
         _currentStock = currentStock;
     }
-    
-    
 }
