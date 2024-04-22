@@ -62,57 +62,49 @@ public class BogusDataGeneration : IDataGeneration
         return _currentStock;
     }
     
-    private string[] names = new[] {"Anna", "Hanna", "Joanna", "Barbara", "Karolina"};
-    private string[] lastNames = new[] {"Nowak", "Kowalski", "Wiśniewski", "Wójcik", "Kowalczyk"};
-    private string[] emails = new[] {"gosia@gmail.com", "franek@yahoo.com", "barok@outlook.com", "arbuz@protonmail.com", "kieszonkowcy@aol.com"};
-    private string[] phoneNumbers = new[] {"123456789", "987654321", "456123789", "789456123", "321654987"};
-    private string[] billingInformation = new[] {"Credit Card", "PayPal", "Bank Transfer", "Cash", "Klarna"};
+    private readonly string[] _billingInformation = new[] {"Credit Card", "PayPal", "Bank Transfer", "Cash", "Klarna"};
 
     private void CreateCustomers()
     {
         var customers = new Faker<Customer>()
             .RuleFor(c => c.Id, _ => Guid.NewGuid())
-            .RuleFor(c => c.FirstName, f => f.PickRandom(names))
-            .RuleFor(c => c.LastName, f => f.PickRandom(lastNames))
-            .RuleFor(c => c.Email, f => f.PickRandom(emails))
-            .RuleFor(c => c.Phone, f => f.PickRandom(phoneNumbers))
+            .RuleFor(c => c.FirstName, f => f.Name.FirstName())
+            .RuleFor(c => c.LastName, f => f.Name.LastName())
+            .RuleFor(c => c.Email, f => f.Person.Email)
             .RuleFor(c => c.DeliveryAddress, f => f.Address.FullAddress())
-            .RuleFor(c => c.BillingInformation, f => f.PickRandom(billingInformation))
-            .RuleFor(c => c.DateOfBirth, _ => DateOnly.FromDateTime(DateTime.Now.AddYears(-20)))
+            .RuleFor(c => c.BillingInformation, f => f.PickRandom(_billingInformation))
+            .RuleFor(c => c.DateOfBirth, f => f.Date.PastDateOnly(60, DateOnly.FromDateTime(DateTime.Now.AddYears(-20))))
+            .RuleFor(c => c.Address , f => f.Address.FullAddress())
+            .RuleFor(c => c.Phone, f => f.Phone.PhoneNumber())
             .Generate(5);
         _customers = customers;
     }
-    
-    private string[] positions = new[] {"Manager", "Salesman", "Accountant", "HR", "IT"};
-    private double[] salaries = new[] {5000.0, 4000, 3000, 2000, 1000};
-    private string[] departments = new[] {"Sales", "Marketing", "Finance", "IT", "HR"};
 
     private void CreateEmployees()
     {
         var employees = new Faker<Employee>()
             .RuleFor(e => e.Id, _ => Guid.NewGuid())
-            .RuleFor(e => e.FirstName, f => f.PickRandom(names))
-            .RuleFor(e => e.LastName, f => f.PickRandom(lastNames))
-            .RuleFor(e => e.Email, f => f.PickRandom(emails))
-            .RuleFor(e => e.Phone, f => f.PickRandom(phoneNumbers))
+            .RuleFor(e => e.FirstName, f => f.Name.FirstName())
+            .RuleFor(e => e.LastName, f => f.Name.LastName())
+            .RuleFor(e => e.Email, f => f.Person.Email)
+            .RuleFor(e => e.Phone, f => f.Phone.PhoneNumber())
             .RuleFor(e => e.Address, f => f.Address.FullAddress())
-            .RuleFor(e => e.Position, f => f.PickRandom(positions))
-            .RuleFor(e => e.Salary, f => f.PickRandom(salaries))
-            .RuleFor(e => e.Department, f => f.PickRandom(departments))
-            .RuleFor(e => e.HireDate, _ => DateOnly.FromDateTime(DateTime.Now.AddYears(-5)))
+            .RuleFor(e => e.Position, f => f.Name.JobTitle())
+            .RuleFor(e => e.Salary, f => f.Random.Float(10000F, 100000F))
+            .RuleFor(e => e.Department, f => f.Commerce.Department())
+            .RuleFor(e => e.HireDate, f => f.Date.PastDateOnly())
             .Generate(5);
         _employees = employees;
     }
-    
-    private string[] _companyNames = new[] {"PetShop", "PetWorld", "PetLand", "PetLovers", "PetParadise"};
 
     private void CreateSuppliers()
     {
         var suppliers = new Faker<Supplier>()
             .RuleFor(s => s.Id, _ => Guid.NewGuid())
-            .RuleFor(s => s.Name, f => f.PickRandom(_companyNames))
-            .RuleFor(s => s.Email, f => f.PickRandom(emails))
-            .RuleFor(s => s.Phone, f => f.PickRandom(phoneNumbers))
+            .RuleFor(s => s.Name, f => f.Company.CompanyName())
+            .RuleFor(s => s.Email, f => f.Person.Email)
+            .RuleFor(s => s.Phone, f => f.Phone.PhoneNumber())
+            .RuleFor(s => s.Address, f => f.Address.FullAddress())
             .Generate(5);
         _suppliers = suppliers;
     }
