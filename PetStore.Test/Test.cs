@@ -30,7 +30,7 @@ public class Test
             Phone = "123456789",
             Address = "123 Main St.",
             BillingInformation = "Credit Card",
-            DateOfBirth = new DateOnly(2000, 1, 1),
+            DateOfBirth = new DateTime(2000, 1, 1),
             DeliveryAddress = "123 Main St."
         };
         _logic.AddCustomer(c);
@@ -50,7 +50,7 @@ public class Test
             Phone = "123456789",
             Address = "123 Main St.",
             BillingInformation = "Credit Card",
-            DateOfBirth = new DateOnly(2000, 1, 1),
+            DateOfBirth = new DateTime(2000, 1, 1),
             DeliveryAddress = "123 Main St."
         };
         _logic.AddCustomer(c);
@@ -69,7 +69,7 @@ public class Test
             Phone = "123456789",
             Address = "123 Main St.",
             BillingInformation = "Credit Card",
-            DateOfBirth = new DateOnly(2000, 1, 1),
+            DateOfBirth = new DateTime(2000, 1, 1),
             DeliveryAddress = "123 Main St."
         };
         _logic.AddCustomer(c);
@@ -96,7 +96,7 @@ public class Test
             Phone = "123456789",
             Address = "123 Main St.",
             BillingInformation = "Credit Card",
-            DateOfBirth = new DateOnly(2000, 1, 1),
+            DateOfBirth = new DateTime(2000, 1, 1),
             DeliveryAddress = "123 Main St."
         };
         _logic.AddCustomer(c);
@@ -109,7 +109,7 @@ public class Test
             Phone = "987654321",
             Address = "123 Main St.",
             BillingInformation = "Credit Card",
-            DateOfBirth = new DateOnly(2000, 1, 1),
+            DateOfBirth = new DateTime(2000, 1, 1),
             DeliveryAddress = "123 Main St."
         };
         _logic.UpdateCustomer(c1);
@@ -128,7 +128,7 @@ public class Test
             Phone = "123456789",
             Address = "123 Main St.",
             BillingInformation = "Credit Card",
-            DateOfBirth = new DateOnly(2000, 1, 1),
+            DateOfBirth = new DateTime(2000, 1, 1),
             DeliveryAddress = "123 Main St."
         };
     }

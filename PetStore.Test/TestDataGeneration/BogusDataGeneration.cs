@@ -73,7 +73,7 @@ public class BogusDataGeneration : IDataGeneration
             .RuleFor(c => c.Email, f => f.Person.Email)
             .RuleFor(c => c.DeliveryAddress, f => f.Address.FullAddress())
             .RuleFor(c => c.BillingInformation, f => f.PickRandom(_billingInformation))
-            .RuleFor(c => c.DateOfBirth, f => f.Date.PastDateOnly(60, DateOnly.FromDateTime(DateTime.Now.AddYears(-20))))
+            .RuleFor(c => c.DateOfBirth, f => f.Date.Past(60, DateTime.Now.AddYears(-20)))
             .RuleFor(c => c.Address , f => f.Address.FullAddress())
             .RuleFor(c => c.Phone, f => f.Phone.PhoneNumber())
             .Generate(5);
@@ -92,7 +92,7 @@ public class BogusDataGeneration : IDataGeneration
             .RuleFor(e => e.Position, f => f.Name.JobTitle())
             .RuleFor(e => e.Salary, f => f.Random.Float(10000F, 100000F))
             .RuleFor(e => e.Department, f => f.Commerce.Department())
-            .RuleFor(e => e.HireDate, f => f.Date.PastDateOnly())
+            .RuleFor(e => e.HireDate, f => f.Date.Past())
             .Generate(5);
         _employees = employees;
     }

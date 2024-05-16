@@ -1,4 +1,6 @@
 ﻿using PetStore.Data.Users;
+using System;
+using System.Collections.Generic;
 
 namespace PetStore.Data.Inventory
 {

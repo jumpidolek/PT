@@ -1,4 +1,6 @@
-﻿namespace PetStore.Data.Users
+﻿using System;
+
+namespace PetStore.Data.Users
 {
     public class Employee : User
     {

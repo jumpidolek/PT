@@ -1,4 +1,6 @@
-﻿namespace PetStore.Data.Inventory
+﻿using System.Collections.Generic;
+
+namespace PetStore.Data.Inventory
 {
     public class CurrentStock
     {

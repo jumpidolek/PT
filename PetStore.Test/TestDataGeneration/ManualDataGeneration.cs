@@ -73,7 +73,7 @@ public class ManualDataGeneration : IDataGeneration
                 Email = "john.krasinki@gmial.com",
                 Phone = "000000000",
                 Address = "1st Street",
-                DateOfBirth = new DateOnly(1980, 1, 1),
+                DateOfBirth = new DateTime(1980, 1, 1),
                 BillingInformation = "Credit Card",
                 DeliveryAddress = "1st Street"
             },
@@ -86,7 +86,7 @@ public class ManualDataGeneration : IDataGeneration
                 Email = "mary.sue@gmial.com",
                 Phone = "111111111",
                 Address = "2nd Street",
-                DateOfBirth = new DateOnly(1979, 1, 1),
+                DateOfBirth = new DateTime(1979, 1, 1),
                 BillingInformation = "Pay Pal",
                 DeliveryAddress = "2nd Street"
             }
@@ -109,7 +109,7 @@ public class ManualDataGeneration : IDataGeneration
                 Position = "Manager",
                 Salary = 100000,
                 Department = "Sales",
-                HireDate = new DateOnly(2000, 1, 1)
+                HireDate = new DateTime(2000, 1, 1)
             },
             new Employee
             {
@@ -122,7 +122,7 @@ public class ManualDataGeneration : IDataGeneration
                 Position = "Assistant",
                 Salary = 50000,
                 Department = "Sales",
-                HireDate = new DateOnly(2001, 1, 1)
+                HireDate = new DateTime(2001, 1, 1)
             }
         ];
         _employees = employees;
