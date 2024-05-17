@@ -1,11 +1,11 @@
-﻿using PetStore.Data.Users;
+﻿using PetStore.Data.Model.Users;
 using System;
 using System.Collections.Generic;
 
 
-namespace PetStore.Data.Inventory
+namespace PetStore.Data.Model.Inventory
 {
-    public class Product
+    internal class Product
     {
         
         public Guid Id { get; set; }

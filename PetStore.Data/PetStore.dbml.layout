@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.75, 9.75" name="PetStore">
+  <DataContextMoniker Name="/PetStoreDataContext" />
+  <nestedChildShapes>
+    <classShape Id="7a955a39-b075-4b61-90a7-98ed7bc61da0" absoluteBounds="3.5, 1, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PetStoreDataContext/CurrentStock" />
+      <nestedChildShapes>
+        <elementListCompartment Id="504da589-9557-455a-b0b3-11c188e0777b" absoluteBounds="3.515, 1.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e34778d9-f570-4b1e-8bd4-032fed663ab9" absoluteBounds="6.75, 6, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/PetStoreDataContext/Customer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="790f051e-431b-456a-8f3d-e86c95773c44" absoluteBounds="6.765, 6.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="89c0c066-0d85-4d1e-9db5-458e3a0e9c72" absoluteBounds="0.75, 6.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/PetStoreDataContext/Employee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6033418a-c3e1-41d9-8253-239d67a022ca" absoluteBounds="0.765, 7.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="50bacfbb-b10f-487c-bbe3-88932b2efb8f" absoluteBounds="9.5, 1, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/PetStoreDataContext/Invoice" />
+      <nestedChildShapes>
+        <elementListCompartment Id="562b9311-02e5-45ac-8736-9c5d0ed5c803" absoluteBounds="9.515, 1.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2d53c451-135f-486b-ace8-9345941dae10" absoluteBounds="6.75, 0.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PetStoreDataContext/Order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e4a70229-60b1-418d-9a0d-027ad5f6d5f1" absoluteBounds="6.765, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e39b40b3-658a-45aa-b2b4-174c14084299" absoluteBounds="0.75, 2, 2, 2.1554996744791661">
+      <DataClassMoniker Name="/PetStoreDataContext/Product" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a090065f-b913-4d55-99f9-1eef45de9b0e" absoluteBounds="0.765, 2.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1a64a0f1-cc51-4f28-b44d-b7b031049ad6" absoluteBounds="6.25, 3.5, 2, 1.1939925130208331">
+      <DataClassMoniker Name="/PetStoreDataContext/Shipment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e25229bc-a7ea-4fba-a8bc-165cc4a94c97" absoluteBounds="6.265, 3.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7d4b4550-6006-439b-9520-c6c4f0c84802" absoluteBounds="3.5, 3.125, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/PetStoreDataContext/Supplier" />
+      <nestedChildShapes>
+        <elementListCompartment Id="54802959-a2ce-4d5b-ae14-699c3dd91b5a" absoluteBounds="3.515, 3.585, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.75 : 7.27005126953125); (10.5 : 7.27005126953125); (10.5 : 2.3862939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PetStoreDataContext/Customer/Customer_Invoice" />
+      <nodes>
+        <classShapeMoniker Id="e34778d9-f570-4b1e-8bd4-032fed663ab9" />
+        <classShapeMoniker Id="50bacfbb-b10f-487c-bbe3-88932b2efb8f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.75 : 1.69314697265625); (9.5 : 1.69314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PetStoreDataContext/Order/Order_Invoice" />
+      <nodes>
+        <classShapeMoniker Id="2d53c451-135f-486b-ace8-9345941dae10" />
+        <classShapeMoniker Id="50bacfbb-b10f-487c-bbe3-88932b2efb8f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.19314697265625); (3.5 : 2.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PetStoreDataContext/Product/Product_CurrentStock" />
+      <nodes>
+        <classShapeMoniker Id="e39b40b3-658a-45aa-b2b4-174c14084299" />
+        <classShapeMoniker Id="7a955a39-b075-4b61-90a7-98ed7bc61da0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 4.09699625651042); (6.25 : 4.09699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PetStoreDataContext/Supplier/Supplier_Shipment" />
+      <nodes>
+        <classShapeMoniker Id="7d4b4550-6006-439b-9520-c6c4f0c84802" />
+        <classShapeMoniker Id="1a64a0f1-cc51-4f28-b44d-b7b031049ad6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 3.64024983723958); (3.5 : 3.64024983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PetStoreDataContext/Product/Product_Supplier" />
+      <nodes>
+        <classShapeMoniker Id="e39b40b3-658a-45aa-b2b4-174c14084299" />
+        <classShapeMoniker Id="7d4b4550-6006-439b-9520-c6c4f0c84802" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

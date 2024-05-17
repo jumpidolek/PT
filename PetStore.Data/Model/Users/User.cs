@@ -1,9 +1,9 @@
 ﻿using System;
 
 
-namespace PetStore.Data.Users
+namespace PetStore.Data.Model.Users
 {
-    public class User
+    internal class User
     {
         
         public Guid Id { get; set; }

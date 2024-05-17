@@ -1,6 +1,6 @@
-﻿namespace PetStore.Data.Inventory
+﻿namespace PetStore.Data.Model.Inventory
 {
-    public enum Category
+    internal enum Category
     {
         Food,
         Accessories,

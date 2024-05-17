@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PetStore.Data.Framewok.Properties {
+namespace PetStore.Data.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

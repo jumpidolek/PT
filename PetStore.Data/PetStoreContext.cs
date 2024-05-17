@@ -1,11 +1,11 @@
-﻿using PetStore.Data.Events;
-using PetStore.Data.Inventory;
-using PetStore.Data.Users;
+﻿using PetStore.Data.Model.Events;
+using PetStore.Data.Model.Inventory;
+using PetStore.Data.Model.Users;
 using System.Data.Entity;
 
 namespace PetStore.Data
 {
-    public class PetStoreContext : DbContext
+    internal class PetStoreContext : DbContext
     {
         DbSet<Customer> Customers { get; set; }
         DbSet<Employee> Employees { get; set; }
@@ -16,7 +16,8 @@ namespace PetStore.Data
         DbSet<Order> Orders { get; set; }
         DbSet<Invoice> Invoices { get; set; }
 
-        public PetStoreContext() : base("Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;") { }
+        public PetStoreContext(string connection) : base(connection) { }
 
+        // "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;"
     }
 }

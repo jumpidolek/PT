@@ -1,12 +1,12 @@
-﻿using PetStore.Data.Inventory;
-using PetStore.Data.Users;
+﻿using PetStore.Data.Model.Inventory;
+using PetStore.Data.Model.Users;
 using System;
 using System.Collections.Generic;
 
 
-namespace PetStore.Data.Events
+namespace PetStore.Data.Model.Events
 {
-    public class Shipment
+    internal class Shipment
     {
         
         public Guid Id { get; set; }

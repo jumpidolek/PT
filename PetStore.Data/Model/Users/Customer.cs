@@ -1,9 +1,9 @@
 ﻿using System;
 
 
-namespace PetStore.Data.Users
+namespace PetStore.Data.Model.Users
 {
-    public class Customer : User
+    internal class Customer : User
     {
         public string FirstName { get; set; }
         

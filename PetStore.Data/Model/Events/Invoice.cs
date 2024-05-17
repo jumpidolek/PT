@@ -1,9 +1,9 @@
-﻿using PetStore.Data.Users;
+﻿using PetStore.Data.Model.Users;
 using System;
 
-namespace PetStore.Data.Events
+namespace PetStore.Data.Model.Events
 {
-    public class Invoice
+    internal class Invoice
     {
         public Guid Id { get; set; }
         

@@ -8,8 +8,8 @@
     <ProjectGuid>{AB66A490-54F2-4686-BFF9-F38575D6E517}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PetStore.Data.Framewok</RootNamespace>
-    <AssemblyName>PetStore.Data.Framewok</AssemblyName>
+    <RootNamespace>PetStore.Data</RootNamespace>
+    <AssemblyName>PetStore.Data</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -52,37 +52,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api.cs" />
-    <Compile Include="Events\Invoice.cs" />
-    <Compile Include="Events\Order.cs" />
-    <Compile Include="Events\Shipment.cs" />
-    <Compile Include="Inventory\Category.cs" />
-    <Compile Include="Inventory\CurrentStock.cs" />
-    <Compile Include="Inventory\PetType.cs" />
-    <Compile Include="Inventory\Product.cs" />
+    <Compile Include="Model\Events\Invoice.cs" />
+    <Compile Include="Model\Events\Order.cs" />
+    <Compile Include="Model\Events\Shipment.cs" />
+    <Compile Include="Model\Inventory\Category.cs" />
+    <Compile Include="Model\Inventory\CurrentStock.cs" />
+    <Compile Include="Model\Inventory\PetType.cs" />
+    <Compile Include="Model\Inventory\Product.cs" />
     <Compile Include="Migrations\202405171422468_generate.cs" />
     <Compile Include="Migrations\202405171422468_generate.Designer.cs">
       <DependentUpon>202405171422468_generate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PetStore.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PetStore.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PetStoreContext.cs" />
+    <Compile Include="Model\Users\Customer.cs" />
+    <Compile Include="Model\Users\Employee.cs" />
+    <Compile Include="Model\Users\Supplier.cs" />
+    <Compile Include="Model\Users\User.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="PetStoreContext.cs" />
-    <Compile Include="Users\Customer.cs" />
-    <Compile Include="Users\Employee.cs" />
-    <Compile Include="Users\Supplier.cs" />
-    <Compile Include="Users\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="PetStore.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PetStore.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PetStore.dbml.layout">
+      <DependentUpon>PetStore.dbml</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

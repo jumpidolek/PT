@@ -1,6 +1,6 @@
-﻿namespace PetStore.Data.Inventory
+﻿namespace PetStore.Data.Model.Inventory
 {
-    public enum PetType
+    internal enum PetType
     {
         Dog,
         Cat,

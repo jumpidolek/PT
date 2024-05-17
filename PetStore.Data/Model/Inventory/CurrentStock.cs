@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace PetStore.Data.Inventory
-{ 
-    public class CurrentStock
+namespace PetStore.Data.Model.Inventory
+{
+    internal class CurrentStock
     {
         
         public Guid Id { get; set; }
