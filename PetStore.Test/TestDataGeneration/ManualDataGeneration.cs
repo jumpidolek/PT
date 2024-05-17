@@ -13,7 +13,7 @@ public class ManualDataGeneration : IDataGeneration
     private List<Product> _products = [];
     private List<Invoice> _invoices = [];
     private List<Shipment> _shipments = [];
-    private CurrentStock _currentStock = new();
+    private List<CurrentStock> _currentStock = new();
     
     public ManualDataGeneration()
     {
@@ -56,7 +56,7 @@ public class ManualDataGeneration : IDataGeneration
         return _shipments;
     }
 
-    public CurrentStock GetCurrentStock()
+    public List<CurrentStock> GetCurrentStock()
     {
         return _currentStock;
     }
@@ -227,13 +227,14 @@ public class ManualDataGeneration : IDataGeneration
 
     private void CreateCurrentStock()
     {
-        var currentStock = new CurrentStock
-        {
-            Products = new Dictionary<Product, int>()
+        List<CurrentStock> currentStock =
+        [
+            new CurrentStock
             {
-                { _products.First(x=> x.Id == Guid.Parse("209dbc6e-ed30-424e-91d2-632863233d2f")), 5 },
-            },
-        };
+                Product = _products.First(x=> x.Id == Guid.Parse("209dbc6e-ed30-424e-91d2-632863233d2f")),
+                Amount = 4,
+            }
+        ];
         _currentStock = currentStock;
     }
 }

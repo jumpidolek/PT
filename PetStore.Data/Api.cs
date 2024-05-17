@@ -1,6 +1,8 @@
 ﻿using PetStore.Data.Events;
 using PetStore.Data.Inventory;
 using PetStore.Data.Users;
+using System;
+using System.Collections.Generic;
 
 namespace PetStore.Data
 {
@@ -12,14 +14,14 @@ namespace PetStore.Data
         protected List<Product> _products = new List<Product>();
         protected List<Invoice> _invoices = new List<Invoice>();
         protected List<Shipment> _shipments = new List<Shipment>();
-        protected CurrentStock _currentStock = new CurrentStock();
+        protected List<CurrentStock> _currentStock = new List<CurrentStock>();
 
         public abstract List<Customer> GetCustomers();
         public abstract List<Employee> GetEmployees();
         public abstract List<Supplier> GetSuppliers();
         public abstract List<Product> GetProducts();
         public abstract List<Invoice> GetInvoices();
-        public abstract CurrentStock GetCurrentStock();
+        public abstract List<CurrentStock> GetCurrentStock();
         public abstract List<Shipment> GetShipments();
 
         public abstract void AddCustomer(Customer customer);

@@ -14,7 +14,7 @@ public class BogusDataGeneration : IDataGeneration
     private List<Product> _products = [];
     private List<Invoice> _invoices = [];
     private List<Shipment> _shipments = [];
-    private CurrentStock _currentStock = new();
+    private List<CurrentStock> _currentStock = new();
     
     public BogusDataGeneration()
     {
@@ -57,7 +57,7 @@ public class BogusDataGeneration : IDataGeneration
         return _shipments;
     }
 
-    public CurrentStock GetCurrentStock()
+    public List<CurrentStock> GetCurrentStock()
     {
         return _currentStock;
     }
@@ -155,8 +155,9 @@ public class BogusDataGeneration : IDataGeneration
     private void CreateCurrentStock()
     {
         var currentStock = new Faker<CurrentStock>()
-            .RuleFor(s => s.Products, f => new Dictionary<Product, int> {{GetProducts()[1], 1}})
-            .Generate();
+            .RuleFor(s => s.Product, f => GetProducts()[1])
+            .RuleFor(s => s.Amount, f =>  f.Random.Int(5, 20))
+            .Generate(1);
         _currentStock = currentStock;
     }
 }

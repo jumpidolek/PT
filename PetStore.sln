@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Data", "PetStore.Data.Framewok\PetStore.Data.csproj", "{AB66A490-54F2-4686-BFF9-F38575D6E517}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Data", "PetStore.Data\PetStore.Data.csproj", "{AB66A490-54F2-4686-BFF9-F38575D6E517}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

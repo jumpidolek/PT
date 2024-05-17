@@ -38,7 +38,7 @@ public class Api : Data.Api
     {
         return _invoices;
     }
-    public override CurrentStock GetCurrentStock()
+    public override List<CurrentStock> GetCurrentStock()
     {
         return _currentStock;
     }
@@ -70,7 +70,11 @@ public class Api : Data.Api
         if (_products.Exists(x => x.Id == product.Id))
             throw new ArgumentException("Product already exists");
         _products.Add(product);
-        _currentStock.Products.Add(product, 0);
+        _currentStock.Add(new CurrentStock()
+        {
+            Product = product,
+            Amount = 0
+        });
     }
     public override void AddInvoice(Invoice invoice)
     {
@@ -79,7 +83,7 @@ public class Api : Data.Api
         _invoices.Add(invoice);
         foreach (var product in invoice.Order.Products)
         {
-            _currentStock.Products[product.Key] -= product.Value;
+            _currentStock.First(x => x.Product == product.Key).Amount -= product.Value;
         }
     }
     public override void AddShipment(Shipment shipment)
@@ -89,7 +93,7 @@ public class Api : Data.Api
         _shipments.Add(shipment);
         foreach (var product in shipment.Products)
         {
-            _currentStock.Products[product.Key] += product.Value;
+            _currentStock.First(x => x.Product == product.Key).Amount += product.Value;
         }
     }
 

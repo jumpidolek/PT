@@ -1,7 +1,17 @@
-﻿namespace PetStore.Data.Inventory
-{
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+
+namespace PetStore.Data.Inventory
+{ 
     public class CurrentStock
     {
-        public Dictionary<Product, int> Products { get; set; } = new Dictionary<Product, int>();
+        
+        public Guid Id { get; set; }
+        
+        public Product Product { get; set; }
+        
+        public int Amount { get; set; }
     }
 }

@@ -37,8 +37,8 @@ public class EmptyDataGeneration : IDataGeneration
         return [];
     }
 
-    public CurrentStock GetCurrentStock()
+    public List<CurrentStock> GetCurrentStock()
     {
-        return new CurrentStock();
+        return [];
     }
 }

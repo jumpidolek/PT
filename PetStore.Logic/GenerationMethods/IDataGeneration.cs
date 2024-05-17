@@ -12,5 +12,5 @@ public interface IDataGeneration
     public List<Product> GetProducts();
     public List<Invoice> GetInvoices();
     public List<Shipment> GetShipments();
-    public CurrentStock GetCurrentStock();
+    public List<CurrentStock> GetCurrentStock();
 }
