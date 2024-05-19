@@ -8,7 +8,6 @@ namespace PetStore.Data.Model.Events
 {
     internal class Shipment
     {
-        
         public Guid Id { get; set; }
         
         public Dictionary<Product, int> Products { get; set; }

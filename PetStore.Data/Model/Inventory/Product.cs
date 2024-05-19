@@ -7,7 +7,6 @@ namespace PetStore.Data.Model.Inventory
 {
     internal class Product
     {
-        
         public Guid Id { get; set; }
         
         public string Name { get; set; }

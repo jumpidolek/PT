@@ -5,7 +5,6 @@ namespace PetStore.Data.Model.Users
 {
     internal class Employee : User
     {
-        
         public string FirstName { get; set; }
         
         public string LastName { get; set; }
