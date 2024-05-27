@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace PetStore.Data.Model.Events
 {
-    internal class Shipment
+    public class Shipment
     {
         
         public Guid Id { get; set; }
         
-        public Dictionary<Product, int> Products { get; set; }
+        public List<Inventory.Product> Product { get; set; }
         
-        public Supplier Supplier { get; set; }
+        public Users.Supplier Supplier { get; set; }
     }
 }
 

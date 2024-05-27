@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PetStore.Data.Model.Inventory
 {
-    internal class Product
+    public class Product
     {
         
         public Guid Id { get; set; }
@@ -17,8 +17,6 @@ namespace PetStore.Data.Model.Inventory
         public string Brand { get; set; }
         
         public Category Category { get; set; }
-        
-        public List<Supplier> Suppliers { get; set; }
         
         public float Price { get; set; }
         

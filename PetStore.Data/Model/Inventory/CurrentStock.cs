@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PetStore.Data.Model.Inventory
 {
-    internal class CurrentStock
+    public class CurrentStock
     {
         
         public Guid Id { get; set; }

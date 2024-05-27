@@ -1,4 +1,4 @@
-﻿namespace PetStore.Data.Framewok.Migrations
+﻿namespace PetStore.Data.Migrations
 {
     using System;
     using System.Data.Entity;
