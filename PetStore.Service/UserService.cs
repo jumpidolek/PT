@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PetStore.Model.Users;
+using PetStore.Data;
 using static PetStore.Service.Conversions.ToDbObjectConverter;
 using static PetStore.Service.Conversions.ToModelObjectConverter;
+using Customer = PetStore.Model.Users.Customer;
+using Employee = PetStore.Model.Users.Employee;
+using Supplier = PetStore.Model.Users.Supplier;
 
 namespace PetStore.Service
 {
     public class UserService
     {
-        private readonly Data.PetStoreDataContext _context;
-        public UserService(Data.PetStoreDataContext context) { _context = context; }
+        private readonly Data.PetStoreDataContext _context = new PetStoreDataContext();
 
         #region employee
 

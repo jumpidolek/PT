@@ -5,7 +5,6 @@ namespace PetStore.Model.Events
     public class Order
     {
         public Guid Id { get; set; }
-        
         public List<Product> Product { get; set; }
         
         public string PromoCode { get; set; }

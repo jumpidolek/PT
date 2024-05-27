@@ -26,4 +26,9 @@
       </Page>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PetStore.Model\PetStore.Model.csproj" />
+      <ProjectReference Include="..\PetStore.Service\PetStore.Service.csproj" />
+    </ItemGroup>
+
 </Project>
