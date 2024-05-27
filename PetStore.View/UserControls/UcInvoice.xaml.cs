@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PetStore.Presentation.UserControls
+namespace PetStore.View.UserControls
 {
     public partial class UcInvoice : UserControl
     {

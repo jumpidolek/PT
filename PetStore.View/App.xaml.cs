@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PetStore.Presentation.View
+namespace PetStore.View
 {
     /// <summary>
     /// Interaction logic for App.xaml
