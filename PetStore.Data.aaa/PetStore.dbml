@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PetStore" Class="PetStoreDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=PetStore;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="PetStore.Data.aaa.Properties.Settings" SettingsPropertyName="PetStoreConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Suppliers" Member="Suppliers">
+    <Type Name="Supplier">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Supplier_Shipment" Member="Shipments" ThisKey="Id" OtherKey="Supplier_Id" Type="Shipment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Brand" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PetType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Order_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Shipment_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Product_CurrentStock" Member="CurrentStocks" ThisKey="Id" OtherKey="Product_Id" Type="CurrentStock" />
+      <Association Name="Shipment_Product" Member="Shipment" ThisKey="Shipment_Id" OtherKey="Id" Type="Shipment" IsForeignKey="true" />
+      <Association Name="Order_Product" Member="Order" ThisKey="Order_Id" OtherKey="Id" Type="Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shipments" Member="Shipments">
+    <Type Name="Shipment">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Supplier_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Shipment_Product" Member="Products" ThisKey="Id" OtherKey="Shipment_Id" Type="Product" />
+      <Association Name="Supplier_Shipment" Member="Supplier" ThisKey="Supplier_Id" OtherKey="Id" Type="Supplier" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Invoices" Member="Invoices">
+    <Type Name="Invoice">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Customer_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Order_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Order_Invoice" Member="Order" ThisKey="Order_Id" OtherKey="Id" Type="Order" IsForeignKey="true" />
+      <Association Name="Customer_Invoice" Member="Customer" ThisKey="Customer_Id" OtherKey="Id" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PromoCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ShippingCost" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Total" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Association Name="Order_Product" Member="Products" ThisKey="Id" OtherKey="Order_Id" Type="Product" />
+      <Association Name="Order_Invoice" Member="Invoices" ThisKey="Id" OtherKey="Order_Id" Type="Invoice" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employees" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Salary" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Department" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HireDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DeliveryAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BillingInformation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Customer_Invoice" Member="Invoices" ThisKey="Id" OtherKey="Customer_Id" Type="Invoice" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CurrentStocks" Member="CurrentStocks">
+    <Type Name="CurrentStock">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Product_CurrentStock" Member="Product" ThisKey="Product_Id" OtherKey="Id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

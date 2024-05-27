@@ -1,11 +1,7 @@
-﻿using PetStore.Data.Model.Inventory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PetStore.Service.Conversions;
-
+using PetStore.Model.Inventory;
 using static PetStore.Service.Conversions.ToDbObjectConverter;
 using static PetStore.Service.Conversions.ToModelObjectConverter;
 

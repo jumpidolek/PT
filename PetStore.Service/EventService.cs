@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PetStore.Data.Model.Events;
-
+using PetStore.Model.Events;
 using static PetStore.Service.Conversions.ToDbObjectConverter;
 using static PetStore.Service.Conversions.ToModelObjectConverter;
 

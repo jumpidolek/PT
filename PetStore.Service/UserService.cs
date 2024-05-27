@@ -1,12 +1,7 @@
-﻿using PetStore.Data.Model.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using PetStore.Service.Conversions;
-
+using PetStore.Model.Users;
 using static PetStore.Service.Conversions.ToDbObjectConverter;
 using static PetStore.Service.Conversions.ToModelObjectConverter;
 

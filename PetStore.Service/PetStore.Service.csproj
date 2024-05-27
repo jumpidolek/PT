@@ -54,6 +54,10 @@
       <Project>{AB66A490-54F2-4686-BFF9-F38575D6E517}</Project>
       <Name>PetStore.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PetStore.Model\PetStore.Model.csproj">
+      <Project>{628806b8-7914-416e-8cd6-171bdd956688}</Project>
+      <Name>PetStore.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

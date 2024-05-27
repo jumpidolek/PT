@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Linq;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Linq;
+using PetStore.Model.Events;
+using PetStore.Model.Inventory;
+using PetStore.Model.Users;
 
 namespace PetStore.Service.Conversions
 {
     internal static class ToDbObjectConverter
     {
-        internal static Data.Employee ToDb(Data.Model.Users.Employee employee) => new Data.Employee
+        internal static Data.Employee ToDb(Employee employee) => new Data.Employee
         {
             Id = employee.Id,
             Email = employee.Email,
@@ -23,7 +21,7 @@ namespace PetStore.Service.Conversions
             HireDate = employee.HireDate
         };
 
-        internal static Data.Customer ToDb(Data.Model.Users.Customer customer) => new Data.Customer
+        internal static Data.Customer ToDb(Customer customer) => new Data.Customer
         {
             Id = customer.Id,
             Email = customer.Email,
@@ -36,7 +34,7 @@ namespace PetStore.Service.Conversions
             DateOfBirth = customer.DateOfBirth
         };
 
-        internal static Data.Supplier ToDb(Data.Model.Users.Supplier supplier) => new Data.Supplier
+        internal static Data.Supplier ToDb(Supplier supplier) => new Data.Supplier
         {
             Id = supplier.Id,
             Email = supplier.Email,
@@ -45,7 +43,7 @@ namespace PetStore.Service.Conversions
             Name = supplier.Name
         };
 
-        internal static Data.Product ToDb(Data.Model.Inventory.Product product) => new Data.Product
+        internal static Data.Product ToDb(Product product) => new Data.Product
         {
             Id = product.Id,
             Name = product.Name,
@@ -56,14 +54,14 @@ namespace PetStore.Service.Conversions
             PetType = (int)product.PetType
         };
 
-        internal static Data.CurrentStock ToDb(Data.Model.Inventory.CurrentStock currentStock) => new Data.CurrentStock
+        internal static Data.CurrentStock ToDb(CurrentStock currentStock) => new Data.CurrentStock
         {
             Id = currentStock.Id,
             Product = ToDb(currentStock.Product),
             Amount = currentStock.Amount
         };
 
-        internal static Data.Shipment ToDb(Data.Model.Events.Shipment shipment)
+        internal static Data.Shipment ToDb(Shipment shipment)
         {
             var products = new EntitySet<Data.Product>();
             foreach (var p in shipment.Product)
@@ -78,7 +76,7 @@ namespace PetStore.Service.Conversions
             };
         }
 
-        internal static Data.Order ToDb(Data.Model.Events.Order order)
+        internal static Data.Order ToDb(Order order)
         {
             var products = new EntitySet<Data.Product>();
             foreach (var p in order.Product)
@@ -95,7 +93,7 @@ namespace PetStore.Service.Conversions
             };
         }
 
-        internal static Data.Invoice ToDb(Data.Model.Events.Invoice invoice) => new Data.Invoice
+        internal static Data.Invoice ToDb(Invoice invoice) => new Data.Invoice
         {
             Id = invoice.Id,
             Customer = ToDb(invoice.Customer),
