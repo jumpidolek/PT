@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using PetStore.Model.Inventory;
+﻿using PetStore.Model.Inventory;
 
 namespace PetStore.Model.Events
 {

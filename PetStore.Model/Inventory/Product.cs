@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PetStore.Model.Inventory
+﻿namespace PetStore.Model.Inventory
 {
     public class Product
     {

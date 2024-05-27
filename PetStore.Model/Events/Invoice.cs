@@ -1,5 +1,4 @@
-﻿using System;
-using PetStore.Model.Users;
+﻿using PetStore.Model.Users;
 
 namespace PetStore.Model.Events
 {

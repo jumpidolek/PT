@@ -51,46 +51,46 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="View\App.xaml.cs">
+    <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\MainWindow.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\UserControls\UcCustomers.xaml.cs">
+    <Compile Include="UserControls\UcCustomers.xaml.cs">
       <DependentUpon>UcCustomers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\UcEmployees.xaml.cs">
+    <Compile Include="UserControls\UcEmployees.xaml.cs">
       <DependentUpon>UcEmployees.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\UcInvoice.xaml.cs">
+    <Compile Include="UserControls\UcInvoice.xaml.cs">
       <DependentUpon>UcInvoice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\UcOrder.xaml.cs">
+    <Compile Include="UserControls\UcOrder.xaml.cs">
       <DependentUpon>UcOrder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\UcProducts.xaml.cs">
+    <Compile Include="UserControls\UcProducts.xaml.cs">
       <DependentUpon>UcProducts.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\UcShipment.xaml.cs">
+    <Compile Include="UserControls\UcShipment.xaml.cs">
       <DependentUpon>UcShipment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\UcSupplier.xaml.cs">
+    <Compile Include="UserControls\UcSupplier.xaml.cs">
       <DependentUpon>UcSupplier.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UserControls\UcCustomers.xaml" />
-    <Page Include="View\UserControls\UcEmployees.xaml" />
-    <Page Include="View\UserControls\UcInvoice.xaml" />
-    <Page Include="View\UserControls\UcOrder.xaml" />
-    <Page Include="View\UserControls\UcProducts.xaml" />
-    <Page Include="View\UserControls\UcShipment.xaml" />
-    <Page Include="View\UserControls\UcSupplier.xaml" />
+    <Page Include="UserControls\UcCustomers.xaml" />
+    <Page Include="UserControls\UcEmployees.xaml" />
+    <Page Include="UserControls\UcInvoice.xaml" />
+    <Page Include="UserControls\UcOrder.xaml" />
+    <Page Include="UserControls\UcProducts.xaml" />
+    <Page Include="UserControls\UcShipment.xaml" />
+    <Page Include="UserControls\UcSupplier.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -110,26 +110,23 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="View\App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="View\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PetStore.Service\PetStore.Service.csproj">
       <Project>{706bfaf2-2fb6-4ded-8c69-e9314dcdc687}</Project>
       <Name>PetStore.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

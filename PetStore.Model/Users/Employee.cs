@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PetStore.Model.Users
+﻿namespace PetStore.Model.Users
 {
     public class Employee : User
     {
