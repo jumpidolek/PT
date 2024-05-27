@@ -16,8 +16,10 @@ namespace PetStore.Data
         DbSet<Order> Orders { get; set; }
         DbSet<Invoice> Invoices { get; set; }
 
-        public PetStoreContext(string connection) : base(connection) { }
+        public PetStoreContext() : base("Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;") { }
 
         // "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;"
+
+        // "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Dymek\\source\\repos\\jumpidolek\\PT\\PetStore.Data\\Instrumention\\PetStore.mdf;Integrated Security=True"
     }
 }

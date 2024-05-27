@@ -3,7 +3,7 @@
 
 namespace PetStore.Data.Model.Users
 {
-    internal class Employee : User
+    public class Employee : User
     {
         public string FirstName { get; set; }
         

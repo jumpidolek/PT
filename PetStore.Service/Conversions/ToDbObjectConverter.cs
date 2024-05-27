@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Linq;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PetStore.Service.Conversions
+{
+    internal static class ToDbObjectConverter
+    {
+        internal static Data.Employee ToDb(Data.Model.Users.Employee employee) => new Data.Employee
+        {
+            Id = employee.Id,
+            Email = employee.Email,
+            Phone = employee.Phone,
+            Address = employee.Address,
+            FirstName = employee.FirstName,
+            LastName = employee.LastName,
+            Position = employee.Position,
+            Salary = employee.Salary,
+            Department = employee.Department,
+            HireDate = employee.HireDate
+        };
+
+        internal static Data.Customer ToDb(Data.Model.Users.Customer customer) => new Data.Customer
+        {
+            Id = customer.Id,
+            Email = customer.Email,
+            Phone = customer.Phone,
+            Address = customer.Address,
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            DeliveryAddress = customer.DeliveryAddress,
+            BillingInformation = customer.BillingInformation,
+            DateOfBirth = customer.DateOfBirth
+        };
+
+        internal static Data.Supplier ToDb(Data.Model.Users.Supplier supplier) => new Data.Supplier
+        {
+            Id = supplier.Id,
+            Email = supplier.Email,
+            Phone = supplier.Phone,
+            Address = supplier.Address,
+            Name = supplier.Name
+        };
+
+        internal static Data.Product ToDb(Data.Model.Inventory.Product product) => new Data.Product
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Brand = product.Brand,
+            Category = (int)product.Category,
+            Price = product.Price,
+            PetType = (int)product.PetType
+        };
+
+        internal static Data.CurrentStock ToDb(Data.Model.Inventory.CurrentStock currentStock) => new Data.CurrentStock
+        {
+            Id = currentStock.Id,
+            Product = ToDb(currentStock.Product),
+            Amount = currentStock.Amount
+        };
+
+        internal static Data.Shipment ToDb(Data.Model.Events.Shipment shipment)
+        {
+            var products = new EntitySet<Data.Product>();
+            foreach (var p in shipment.Product)
+            {
+                products.Add(ToDb(p));
+            }
+            return new Data.Shipment()
+            {
+                Id = shipment.Id,
+                Products = products,
+                Supplier = ToDb(shipment.Supplier)
+            };
+        }
+
+        internal static Data.Order ToDb(Data.Model.Events.Order order)
+        {
+            var products = new EntitySet<Data.Product>();
+            foreach (var p in order.Product)
+            {
+                products.Add(ToDb(p));
+            }
+            return new Data.Order()
+            {
+                Id = order.Id,
+                Products = products,
+                PromoCode = order.PromoCode,
+                ShippingCost = order.ShippingCost,
+                Total = order.Total
+            };
+        }
+
+        internal static Data.Invoice ToDb(Data.Model.Events.Invoice invoice) => new Data.Invoice
+        {
+            Id = invoice.Id,
+            Customer = ToDb(invoice.Customer),
+            Order = ToDb(invoice.Order)
+        };
+    }
+}
