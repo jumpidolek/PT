@@ -1,16 +1,15 @@
-﻿namespace PetStore.Model.Inventory
+namespace PetStore.Model.Inventory;
+
+public enum PetType
 {
-    public enum PetType
-    {
-        Dog,
-        Cat,
-        Rodent,
-        Rabbit,
-        Bird,
-        Fish,
-        ReptilesAndAmphibians,
-        Horse,
-        FarmAnimals,
-        Insects
-    }
+    Dog = 1,
+    Cat = 2,
+    Rodent = 3,
+    Rabbit = 4,
+    Bird = 5,
+    Fish = 6,
+    ReptilesAndAmphibians = 7,
+    Horse = 8,
+    FarmAnimals = 9,
+    Insects = 10
 }

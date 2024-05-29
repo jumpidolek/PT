@@ -10,6 +10,14 @@
       <Association Name="Supplier_Shipment" Member="Shipments" ThisKey="Id" OtherKey="Supplier_Id" Type="Shipment" />
     </Type>
   </Table>
+  <Table Name="dbo.Shipments" Member="Shipments">
+    <Type Name="Shipment">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Supplier_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Shipment_Product" Member="Products" ThisKey="Id" OtherKey="Shipment_Id" Type="Product" />
+      <Association Name="Supplier_Shipment" Member="Supplier" ThisKey="Supplier_Id" OtherKey="Id" Type="Supplier" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Products" Member="Products">
     <Type Name="Product">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -26,23 +34,6 @@
       <Association Name="Order_Product" Member="Order" ThisKey="Order_Id" OtherKey="Id" Type="Order" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Shipments" Member="Shipments">
-    <Type Name="Shipment">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Supplier_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Shipment_Product" Member="Products" ThisKey="Id" OtherKey="Shipment_Id" Type="Product" />
-      <Association Name="Supplier_Shipment" Member="Supplier" ThisKey="Supplier_Id" OtherKey="Id" Type="Supplier" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Invoices" Member="Invoices">
-    <Type Name="Invoice">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Customer_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Order_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Order_Invoice" Member="Order" ThisKey="Order_Id" OtherKey="Id" Type="Order" IsForeignKey="true" />
-      <Association Name="Customer_Invoice" Member="Customer" ThisKey="Customer_Id" OtherKey="Id" Type="Customer" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Orders" Member="Orders">
     <Type Name="Order">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -53,18 +44,13 @@
       <Association Name="Order_Invoice" Member="Invoices" ThisKey="Id" OtherKey="Order_Id" Type="Invoice" />
     </Type>
   </Table>
-  <Table Name="dbo.Employees" Member="Employees">
-    <Type Name="Employee">
+  <Table Name="dbo.Invoices" Member="Invoices">
+    <Type Name="Invoice">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Position" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Salary" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="Department" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="HireDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Customer_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Order_Id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Order_Invoice" Member="Order" ThisKey="Order_Id" OtherKey="Id" Type="Order" IsForeignKey="true" />
+      <Association Name="Customer_Invoice" Member="Customer" ThisKey="Customer_Id" OtherKey="Id" Type="Customer" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Customers" Member="Customers">
