@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PetStore.Model.Users;
+using PetStore.Test.DataGeneration;
 using PetStore.ViewModel;
 
 namespace PetStore.Test;
@@ -24,6 +25,22 @@ public class ViewModelTest
             new Customer { FirstName = "Maddy", LastName = "Chaplin" },
             new Customer { FirstName = "John", LastName = "Doe" }
         ];
+        var vm = new MainViewModel(c);
+        Assert.IsNotNull(vm.ListObjects);
+    }
+    
+    [TestMethod]
+    public void TestGetListObjectsBogus()
+    {
+        List<Customer> c = BogusDataGeneration.CreateCustomers();
+        var vm = new MainViewModel(c);
+        Assert.IsNotNull(vm.ListObjects);
+    }
+    
+    [TestMethod]
+    public void TestGetListObjectsManual()
+    {
+        List<Customer> c = ManualDataGeneration.GenerateCustomers();
         var vm = new MainViewModel(c);
         Assert.IsNotNull(vm.ListObjects);
     }
