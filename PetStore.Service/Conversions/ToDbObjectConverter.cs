@@ -7,7 +7,7 @@ namespace PetStore.Service.Conversions;
 
 public static class ToDbObjectConverter
 {
-    internal static Data.Customer ToDb(Customer customer) => new Data.Customer
+    public static Data.Customer ToDb(Customer customer) => new Data.Customer
     { 
         Id = customer.Id,
         Email = customer.Email,
@@ -20,7 +20,7 @@ public static class ToDbObjectConverter
         DateOfBirth = customer.DateOfBirth
     };
 
-    internal static Data.Supplier ToDb(Supplier supplier) => new Data.Supplier
+    public static Data.Supplier ToDb(Supplier supplier) => new Data.Supplier
     {
         Id = supplier.Id,
         Email = supplier.Email,
@@ -29,7 +29,7 @@ public static class ToDbObjectConverter
         Name = supplier.Name
     };
 
-    internal static Data.Product ToDb(Product product) => new Data.Product
+    public static Data.Product ToDb(Product product) => new Data.Product
     {
         Id = product.Id,
         Name = product.Name,
@@ -40,14 +40,14 @@ public static class ToDbObjectConverter
         PetType = (int)product.PetType
     };
 
-    internal static Data.CurrentStock ToDb(CurrentStock currentStock) => new Data.CurrentStock
+    public static Data.CurrentStock ToDb(CurrentStock currentStock) => new Data.CurrentStock
     {
         Id = currentStock.Id,
         Product = ToDb(currentStock.Product),
         Amount = currentStock.Amount
     };
 
-    internal static Data.Shipment ToDb(Shipment shipment)
+    public static Data.Shipment ToDb(Shipment shipment)
     {
         var products = new EntitySet<Data.Product>();
         foreach (var p in shipment.Products)
@@ -62,7 +62,7 @@ public static class ToDbObjectConverter
         };
     }
     
-    internal static Data.Order ToDb(Order order)
+    public static Data.Order ToDb(Order order)
     {
         var products = new EntitySet<Data.Product>();
         foreach (var p in order.Products)
@@ -79,7 +79,7 @@ public static class ToDbObjectConverter
         };
     }
     
-    internal static Data.Invoice ToDb(Invoice invoice) => new()
+    public static Data.Invoice ToDb(Invoice invoice) => new()
     {
         Id = invoice.Id,
         Customer = ToDb(invoice.Customer),

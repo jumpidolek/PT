@@ -5,9 +5,9 @@ using PetStore.Model.Users;
 
 namespace PetStore.Service.Conversions;
 
-internal static class ToModelObjectConverter
+public static class ToModelObjectConverter
 {
-    internal static Customer ToModel(Data.Customer customer) => new()
+    public static Customer ToModel(Data.Customer customer) => new()
     {
         Id = customer.Id,
         Email = customer.Email,
@@ -19,7 +19,7 @@ internal static class ToModelObjectConverter
         BillingInformation = customer.BillingInformation,
         DateOfBirth = customer.DateOfBirth
     }; 
-    internal static Supplier ToModel(Data.Supplier supplier) => new()
+    public static Supplier ToModel(Data.Supplier supplier) => new()
     {
         Id = supplier.Id,
         Email = supplier.Email,
@@ -27,7 +27,7 @@ internal static class ToModelObjectConverter
         Address = supplier.Address,
         Name = supplier.Name
     };
-    internal static Product ToModel(Data.Product product) => new()
+    public static Product ToModel(Data.Product product) => new()
     {
         Id = product.Id,
         Name = product.Name,
@@ -37,13 +37,13 @@ internal static class ToModelObjectConverter
         Price = product.Price,
         PetType = (PetType)product.PetType
     };
-    internal static CurrentStock ToModel(Data.CurrentStock currentStock) => new()
+    public static CurrentStock ToModel(Data.CurrentStock currentStock) => new()
     {
         Id = currentStock.Id,
         Product = ToModel(currentStock.Product),
         Amount = currentStock.Amount
     };
-    internal static Shipment ToModel(Data.Shipment shipment) {
+    public static Shipment ToModel(Data.Shipment shipment) {
         var products = shipment.Products.Select(ToModel).ToList();
         return new Shipment
         {
@@ -52,7 +52,7 @@ internal static class ToModelObjectConverter
             Supplier = ToModel(shipment.Supplier)
         };
     }
-    internal static Order ToModel(Data.Order order)
+    public static Order ToModel(Data.Order order)
     {
         var products = order.Products.Select(ToModel).ToList();
         return new Order()
@@ -64,7 +64,7 @@ internal static class ToModelObjectConverter
             Total = order.Total
         };
     }
-    internal static Invoice ToModel(Data.Invoice invoice) => new()
+    public static Invoice ToModel(Data.Invoice invoice) => new()
     {
         Id = invoice.Id,
         Customer = ToModel(invoice.Customer),

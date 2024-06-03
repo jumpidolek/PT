@@ -15,11 +15,13 @@ namespace PetStore.ViewModel;
 public sealed class MainViewModel : ViewModelBase
 {
     private const string ConnectionString = "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;";
+    private readonly List<Customer> _customers;
     
-    public MainViewModel()
+    public MainViewModel(List<Customer> customers = null)
     {
         ChangeModeCommand = new RelayCommand(ChangeMode);
         SaveChangesCommand = new RelayCommand(SaveChanges);
+        _customers = customers;
     }
     
     #region values
@@ -27,7 +29,7 @@ public sealed class MainViewModel : ViewModelBase
     private List<Customer> _listObjects = [];
     public List<Customer> ListObjects
     {
-        get => _listObjects = Task.Run(() => new UserService(ConnectionString).GetCustomers()).Result;
+        get => _listObjects = _customers ?? Task.Run(() => new UserService(ConnectionString).GetCustomers()).Result;
         set => SetField(ref _listObjects, value);
     }
     
