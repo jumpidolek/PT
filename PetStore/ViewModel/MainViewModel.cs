@@ -18,7 +18,8 @@ public sealed class MainViewModel : ViewModelBase
     
     public MainViewModel()
     {
-        ShowListCommand = new RelayCommand(ShowList);
+        ChangeModeCommand = new RelayCommand(ChangeMode);
+        SaveChangesCommand = new RelayCommand(SaveChanges);
     }
     
     #region values
@@ -26,7 +27,7 @@ public sealed class MainViewModel : ViewModelBase
     private List<Customer> _listObjects = [];
     public List<Customer> ListObjects
     {
-        get => _listObjects = new UserService(ConnectionString).GetCustomers();
+        get => _listObjects = Task.Run(() => new UserService(ConnectionString).GetCustomers()).Result;
         set => SetField(ref _listObjects, value);
     }
     
@@ -34,26 +35,55 @@ public sealed class MainViewModel : ViewModelBase
     public Customer SelectedObject
     {
         get => _selectedObject;
-        set
-        {
-            SetField(ref _selectedObject, value);
-            new UserService(ConnectionString).UpdateCustomer(_selectedObject);
-        }
+        set => SetField(ref _selectedObject, value);
+    }
+
+    private int _selectedIndex = -1;
+    public int SelectedIndex
+    {
+        get => _selectedIndex;
+        set => SetField(ref _selectedIndex, value);
+    }
+    
+    private bool _isEnabled = true;
+    public bool IsEnabled
+    {
+        get => _isEnabled;
+        set => SetField(ref _isEnabled, value);
+    }
+
+    private string _stateText = "Edit";
+    public string StateText
+    {
+        get => _stateText;
+        set => SetField(ref _stateText, value);
     }
 
     #endregion
     
     #region commands
     
-    public ICommand ShowListCommand { get; set; }
-    
-    private void ShowList(object obj)
+    public ICommand ChangeModeCommand { get; set; }
+    private void ChangeMode(object obj)
     {
-        Task.Run(() =>
+        IsEnabled = !IsEnabled;
+        StateText = !IsEnabled ? "New" : "Edit";
+        SelectedIndex = -1;
+        SelectedObject = new Customer
         {
-            ListObjects!.Clear();
-            ListObjects.AddRange(new UserService(ConnectionString).GetCustomers());
-        });
+            Id = Guid.NewGuid()
+        };
+    }
+    
+    public ICommand SaveChangesCommand { get; set; }
+    private void SaveChanges(object obj)
+    {
+        if (IsEnabled) Task.Run(() => new UserService(ConnectionString).UpdateCustomer(SelectedObject));
+        else
+        {
+            Task.Run(() => new UserService(ConnectionString).AddCustomer(SelectedObject));
+            Task.Run(() => ListObjects = new UserService(ConnectionString).GetCustomers());
+        }
     }
     
     #endregion

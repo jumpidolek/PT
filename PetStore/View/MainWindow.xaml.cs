@@ -1,4 +1,6 @@
-﻿namespace PetStore.View
+﻿using PetStore.ViewModel;
+
+namespace PetStore.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -8,6 +10,7 @@
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

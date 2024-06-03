@@ -26,14 +26,11 @@ public class UserService(string connectionString)
     }
     public List<Customer> GetCustomers()
     {
-        return (from customer in _context.Customers
-            select customer).AsEnumerable().Select(ToModel).ToList();
+        return _context.Customers.Select(ToModel).ToList();
     }
     public void UpdateCustomer(Customer customer)
     {
-        var c = (from cust in _context.Customers
-            where cust.Id == customer.Id
-            select cust).First();
+        var c = _context.Customers.Where(x => x.Id == customer.Id).Select(x => x).First();
         c.FirstName = customer.FirstName;
         c.LastName = customer.LastName;
         c.Address = customer.Address;

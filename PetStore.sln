@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Data", "PetStore.Data\PetStore.Data.csproj", "{89ED5CDF-6ABB-4889-AA08-0DE8DF8A0D99}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Model", "PetStore.Model\PetStore.Model.csproj", "{2B31911B-91D8-4E4A-A0AE-F2DC581E4546}"
@@ -7,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Service", "PetStore.Service\PetStore.Service.csproj", "{2A27283B-C716-4116-8EEE-5BF6ACEC16AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore", "PetStore\PetStore.csproj", "{57BE2CE8-7860-4BC6-89F5-7671F809288D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D5C7A2F-C6FD-4DF0-B4BA-54EA1D13BE40}"
+	ProjectSection(SolutionItems) = preProject
+		diagram.dgml = diagram.dgml
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +39,11 @@ Global
 		{57BE2CE8-7860-4BC6-89F5-7671F809288D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57BE2CE8-7860-4BC6-89F5-7671F809288D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57BE2CE8-7860-4BC6-89F5-7671F809288D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2801A85D-AED5-4B74-A547-417623BF0F56}
 	EndGlobalSection
 EndGlobal
