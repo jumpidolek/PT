@@ -1,16 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.9.34622.214
+VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Data", "PetStore.Data\PetStore.Data.csproj", "{F41C70FD-1996-4E44-83FC-D0DCDF4D89A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Data", "PetStore.Data\PetStore.Data.csproj", "{89ED5CDF-6ABB-4889-AA08-0DE8DF8A0D99}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Logic", "PetStore.Logic\PetStore.Logic.csproj", "{BD01047E-DD60-41B5-837E-9FF58B503259}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Model", "PetStore.Model\PetStore.Model.csproj", "{2B31911B-91D8-4E4A-A0AE-F2DC581E4546}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Test", "PetStore.Test\PetStore.Test.csproj", "{4D9E6730-9B99-4F57-9C17-BE9687827255}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Service", "PetStore.Service\PetStore.Service.csproj", "{2A27283B-C716-4116-8EEE-5BF6ACEC16AD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1F3F0B1-745E-4CD4-9A69-F128A01A1D3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore", "PetStore\PetStore.csproj", "{57BE2CE8-7860-4BC6-89F5-7671F809288D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D5C7A2F-C6FD-4DF0-B4BA-54EA1D13BE40}"
 	ProjectSection(SolutionItems) = preProject
+		diagram.dgml = diagram.dgml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -20,23 +23,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F41C70FD-1996-4E44-83FC-D0DCDF4D89A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F41C70FD-1996-4E44-83FC-D0DCDF4D89A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F41C70FD-1996-4E44-83FC-D0DCDF4D89A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F41C70FD-1996-4E44-83FC-D0DCDF4D89A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD01047E-DD60-41B5-837E-9FF58B503259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD01047E-DD60-41B5-837E-9FF58B503259}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD01047E-DD60-41B5-837E-9FF58B503259}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD01047E-DD60-41B5-837E-9FF58B503259}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D9E6730-9B99-4F57-9C17-BE9687827255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D9E6730-9B99-4F57-9C17-BE9687827255}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D9E6730-9B99-4F57-9C17-BE9687827255}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D9E6730-9B99-4F57-9C17-BE9687827255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89ED5CDF-6ABB-4889-AA08-0DE8DF8A0D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89ED5CDF-6ABB-4889-AA08-0DE8DF8A0D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89ED5CDF-6ABB-4889-AA08-0DE8DF8A0D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89ED5CDF-6ABB-4889-AA08-0DE8DF8A0D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B31911B-91D8-4E4A-A0AE-F2DC581E4546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B31911B-91D8-4E4A-A0AE-F2DC581E4546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B31911B-91D8-4E4A-A0AE-F2DC581E4546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B31911B-91D8-4E4A-A0AE-F2DC581E4546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A27283B-C716-4116-8EEE-5BF6ACEC16AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A27283B-C716-4116-8EEE-5BF6ACEC16AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A27283B-C716-4116-8EEE-5BF6ACEC16AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A27283B-C716-4116-8EEE-5BF6ACEC16AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57BE2CE8-7860-4BC6-89F5-7671F809288D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57BE2CE8-7860-4BC6-89F5-7671F809288D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57BE2CE8-7860-4BC6-89F5-7671F809288D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57BE2CE8-7860-4BC6-89F5-7671F809288D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {91FF424D-3EBE-49B6-9EFA-27B35DC84B02}
+		SolutionGuid = {2801A85D-AED5-4B74-A547-417623BF0F56}
 	EndGlobalSection
 EndGlobal
