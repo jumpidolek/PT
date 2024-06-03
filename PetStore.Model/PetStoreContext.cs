@@ -5,7 +5,7 @@ using PetStore.Model.Users;
 
 namespace PetStore.Model;
 
-public class PetStoreContext() : DbContext("Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;")
+public class PetStoreContext() : DbContext("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\natik\\RiderProjects\\PT\\PetStore.Test\\Instrumentation\\PetStore.mdf;Integrated Security=True")
 {
     private DbSet<Customer> Customers { get; set; }
     private DbSet<Supplier> Suppliers { get; set; }
@@ -14,8 +14,8 @@ public class PetStoreContext() : DbContext("Server=localhost\\SQLEXPRESS;Databas
     private DbSet<Shipment> Shipments { get; set; }
     private DbSet<Order> Orders { get; set; }
     private DbSet<Invoice> Invoices { get; set; }
-    
+
     // "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;"
 
-    // "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=<<FILE_LOCATION>>;Integrated Security=True"
+    // "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\Users\natik\RiderProjects\PT\PetStore.Test\Instrumentation\PetStore.mdf;Integrated Security=True"
 }

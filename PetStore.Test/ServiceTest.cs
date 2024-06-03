@@ -1,17 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Linq;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PetStore.Data;
 using PetStore.Model.Inventory;
+using PetStore.Service;
 using Customer = PetStore.Model.Users.Customer;
-using Product = PetStore.Model.Inventory.Product;
 
 namespace PetStore.Test;
 
 [TestClass]
 public class ServiceTest
 {
-    private const string ConnectionString = "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;";
+    private string ConnectionString;
+
+    [TestInitialize]
+    public void TestInitialize()
+    {
+        string _DBRelativePath = @"Instrumentation\PetStore.mdf";
+        string _TestingWorkingFolder = Environment.CurrentDirectory;
+        string _DBPath = Path.Combine(_TestingWorkingFolder, _DBRelativePath);
+        ConnectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security = True;";
+    }
     
     [TestMethod]
     public void TestDbObjectConverter()
@@ -37,57 +48,36 @@ public class ServiceTest
             LastName = "Chaplin"
         };
         
-        Customer c = PetStore.Service.Conversions.ToModelObjectConverter.ToModel(dbCustomer);
+        Customer c = Service.Conversions.ToModelObjectConverter.ToModel(dbCustomer);
         
         Assert.AreEqual(dbCustomer.FirstName, c.FirstName);
         Assert.AreEqual(dbCustomer.LastName, c.LastName);
     }
 
     [TestMethod]
-    public void TestEventServiceAddOrder()
+    public void TestGetCustomer()
     {
-        Model.Events.Order o = new Model.Events.Order
+        foreach (var c in new UserService(ConnectionString).GetCustomers())
         {
-            Products = [new Product { Name = "Dog Food", Price = 10 }],
-        };
-        
-        new Service.EventService(ConnectionString).AddOrder(o);
+            Assert.AreEqual("Ania", c.FirstName);
+        }
     }
-    
+
     [TestMethod]
-    public void TestEventServiceAddInvoice()
+    public void TestGetProducts()
     {
-        Model.Events.Order o = new Model.Events.Order
+        foreach (var item in new InventoryService(ConnectionString).GetProducts())
         {
-            Products = [new Product { Name = "Dog Food", Price = 10 }],
-        };
-        Model.Events.Invoice i = new Model.Events.Invoice
-        {
-            Order = o
-        };
-        
-        new Service.EventService(ConnectionString).AddInvoice(i);
+            Assert.AreEqual("Karma", item.Name);
+        }
     }
-    
+
     [TestMethod]
-    public void TestEventServiceAddShipment()
+    public void TestGetOrders()
     {
-        Product p = new Product
+        foreach (var item in new EventService(ConnectionString).GetOrders())
         {
-            Name = "Dog Food",
-            Price = 10
-        };
-        Model.Inventory.CurrentStock cs = new Model.Inventory.CurrentStock
-        {
-            Product = p,
-            Amount = 10
-        };
-        Model.Events.Shipment s = new Model.Events.Shipment
-        {
-            Products = new List<Model.Inventory.Product> { p },
-            Supplier = new Model.Users.Supplier { Name = "PetCo" }
-        };
-        
-        new Service.EventService(ConnectionString).AddShipment(s);
+            Assert.AreEqual("dobrakarma", item.PromoCode);
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Linq;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PetStore.Data;
 
@@ -8,6 +10,24 @@ namespace PetStore.Test;
 [TestClass]
 public class DataTest
 {
+    private string ConnectionString;
+
+    [TestInitialize]
+    public void TestInitialize()
+    {
+        string _DBRelativePath = @"Instrumentation\PetStore.mdf";
+        string _TestingWorkingFolder = Environment.CurrentDirectory;
+        string _DBPath = Path.Combine(_TestingWorkingFolder, _DBRelativePath);
+        ConnectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security = True;";
+    }
+
+    [TestMethod]
+    public void TestConnection()
+    {
+        using Data.PetStoreDataContext db = new(ConnectionString);
+        Assert.IsNotNull(db.Connection);
+    }
+
     [TestMethod]
     public void TestOrder()
     {
