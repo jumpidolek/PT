@@ -1239,10 +1239,6 @@ namespace PetStore.Data
 		
 		private string _LastName;
 		
-		private string _DeliveryAddress;
-		
-		private string _BillingInformation;
-		
 		private System.DateTime _DateOfBirth;
 		
 		private string _Email;
@@ -1263,10 +1259,6 @@ namespace PetStore.Data
     partial void OnFirstNameChanged();
     partial void OnLastNameChanging(string value);
     partial void OnLastNameChanged();
-    partial void OnDeliveryAddressChanging(string value);
-    partial void OnDeliveryAddressChanged();
-    partial void OnBillingInformationChanging(string value);
-    partial void OnBillingInformationChanged();
     partial void OnDateOfBirthChanging(System.DateTime value);
     partial void OnDateOfBirthChanged();
     partial void OnEmailChanging(string value);
@@ -1339,46 +1331,6 @@ namespace PetStore.Data
 					this._LastName = value;
 					this.SendPropertyChanged("LastName");
 					this.OnLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryAddress", DbType="NVarChar(MAX)")]
-		public string DeliveryAddress
-		{
-			get
-			{
-				return this._DeliveryAddress;
-			}
-			set
-			{
-				if ((this._DeliveryAddress != value))
-				{
-					this.OnDeliveryAddressChanging(value);
-					this.SendPropertyChanging();
-					this._DeliveryAddress = value;
-					this.SendPropertyChanged("DeliveryAddress");
-					this.OnDeliveryAddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingInformation", DbType="NVarChar(MAX)")]
-		public string BillingInformation
-		{
-			get
-			{
-				return this._BillingInformation;
-			}
-			set
-			{
-				if ((this._BillingInformation != value))
-				{
-					this.OnBillingInformationChanging(value);
-					this.SendPropertyChanging();
-					this._BillingInformation = value;
-					this.SendPropertyChanged("BillingInformation");
-					this.OnBillingInformationChanged();
 				}
 			}
 		}

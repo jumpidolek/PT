@@ -1,11 +1,11 @@
 using System.Data.Entity;
-using PetStore.Model.Events;
-using PetStore.Model.Inventory;
-using PetStore.Model.Users;
+using PetStore.Model.Models.Events;
+using PetStore.Model.Models.Inventory;
+using PetStore.Model.Models.Users;
 
 namespace PetStore.Model;
 
-public class PetStoreContext() : DbContext("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\natik\\RiderProjects\\PT\\PetStore.Test\\Instrumentation\\PetStore.mdf;Integrated Security=True")
+public class PetStoreContext() : DbContext("Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;")
 {
     private DbSet<Customer> Customers { get; set; }
     private DbSet<Supplier> Suppliers { get; set; }
