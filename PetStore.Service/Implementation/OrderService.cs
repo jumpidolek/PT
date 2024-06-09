@@ -7,30 +7,30 @@ using PetStore.Service.API;
 
 namespace PetStore.Service.Implementation;
 
-public class OrderService(Guid id, List<IProductService> products, string promoCode, float shippingCost, float total)
+public class OrderService(Guid id, List<IProductService> products, string promoCode, float shippingCost, float total, string connectionString)
     : IOrderService
 {
-    public Guid Id { get; set; } = id;
-    public List<IProductService> Products { get; set; } = products;
-    public string PromoCode { get; set; } = promoCode;
-    public float ShippingCost { get; set; } = shippingCost;
-    public float Total { get; set; } = total;
+    public Guid Id { get; } = id;
+    public List<IProductService> Products { get; } = products;
+    public string PromoCode { get; } = promoCode;
+    public float ShippingCost { get; } = shippingCost;
+    public float Total { get; } = total;
     
-    private readonly PetStoreDataContext _context = new();
+    private readonly PetStoreDataContext _context = new(connectionString);
 
     public void AddOrder()
     {
         _context.Orders.InsertOnSubmit(new Order
         {
-            Id = id,
-            PromoCode = promoCode,
-            ShippingCost = shippingCost,
-            Total = total
+            Id = Id,
+            PromoCode = PromoCode,
+            ShippingCost = ShippingCost,
+            Total = Total
         });
         _context.SubmitChanges();
     }
     
-    public static List<IOrderService> GetOrders()
+    public static List<IOrderService> GetOrders(string connectionString)
     {
         var context = new PetStoreDataContext();
         var orders = context.Orders.ToList();
@@ -47,7 +47,8 @@ public class OrderService(Guid id, List<IProductService> products, string promoC
                     product.Brand,
                     (Category)product.Category,
                     product.Price,
-                    (PetType)product.PetType
+                    (PetType)product.PetType,
+                    connectionString
                 ));
             }
             orderServices.Add(new OrderService(
@@ -55,12 +56,13 @@ public class OrderService(Guid id, List<IProductService> products, string promoC
                 productServices,
                 order.PromoCode,
                 order.ShippingCost,
-                order.Total
+                order.Total,
+                connectionString
             ));
         }
         return orderServices;
     }
-    public static IOrderService GetOrder(Guid id)
+    public static IOrderService GetOrder(Guid id, string connectionString)
     {
         var context = new PetStoreDataContext();
         var order = context.Orders.First(o => o.Id == id);
@@ -78,7 +80,8 @@ public class OrderService(Guid id, List<IProductService> products, string promoC
                 product.Brand,
                 (Category)product.Category,
                 product.Price,
-                (PetType)product.PetType
+                (PetType)product.PetType,
+                connectionString
             ));
         }
         return new OrderService(
@@ -86,7 +89,8 @@ public class OrderService(Guid id, List<IProductService> products, string promoC
             productServices,
             order.PromoCode,
             order.ShippingCost,
-            order.Total
+            order.Total,
+            connectionString
         );
     }
 }

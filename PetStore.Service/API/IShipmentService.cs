@@ -5,9 +5,9 @@ namespace PetStore.Service.API;
 
 public interface IShipmentService
 {
-    public Guid Id { get; set; }
-    public List<IProductService> Products { get; set; }
-    public ISupplierService Supplier { get; set; }
+    public Guid Id { get; }
+    public List<IProductService> Products { get; }
+    public ISupplierService Supplier { get; }
     
     public void AddShipment();
 }

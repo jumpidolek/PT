@@ -6,13 +6,13 @@ using PetStore.Service.API;
 
 namespace PetStore.Service.Implementation;
 
-public class StockService(Guid id, IProductService product, int amount) : IStockService
+public class StockService(Guid id, IProductService product, int amount, string connectionString) : IStockService
 {
-    public Guid Id { get; set; } = id;
-    public IProductService Product { get; set; } = product;
+    public Guid Id { get; } = id;
+    public IProductService Product { get; } = product;
     public int Amount { get; set; } = amount;
 
-    private readonly PetStoreDataContext _context = new();
+    private readonly PetStoreDataContext _context = new(connectionString);
     
     public void AddStock()
     {
@@ -23,25 +23,25 @@ public class StockService(Guid id, IProductService product, int amount) : IStock
         }
         _context.CurrentStocks.InsertOnSubmit(new CurrentStock
         {
-            Id = id,
+            Id = Id,
             Product = product,
-            Amount = amount
+            Amount = Amount
         });
         _context.SubmitChanges();
     }
-    public void UpdateAmount(int amount)
+    public void UpdateStock()
     {
-        var stock = _context.CurrentStocks.First(s => s.Id == id);
+        var stock = _context.CurrentStocks.First(s => s.Id == Id);
         if (stock == null)
         {
             throw new Exception("Stock not found");
         }
-        stock.Amount = amount;
+        stock.Amount = Amount;
         _context.SubmitChanges();
     }
     public void DeleteStock()
     {
-        var stock = _context.CurrentStocks.First(s => s.Id == id);
+        var stock = _context.CurrentStocks.First(s => s.Id == Id);
         if (stock == null)
         {
             throw new Exception("Stock not found");
@@ -50,9 +50,9 @@ public class StockService(Guid id, IProductService product, int amount) : IStock
         _context.SubmitChanges();
     }
     
-    public static List<IStockService> GetAllStocks()
+    public static List<IStockService> GetAllStocks(string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var stocks = new List<IStockService>();
         foreach (var stock in context.CurrentStocks)
         {
@@ -65,14 +65,16 @@ public class StockService(Guid id, IProductService product, int amount) : IStock
                     stock.Product.Brand, 
                     (Category)stock.Product.Category,
                     stock.Product.Price, 
-                    (PetType)stock.Product.PetType), 
-                stock.Amount));
+                    (PetType)stock.Product.PetType,
+                    connectionString), 
+                stock.Amount,
+                connectionString));
         }
         return stocks;
     }
-    public static IStockService GetStock(Guid productId)
+    public static IStockService GetStock(Guid productId, string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var stock = context.CurrentStocks.First(s => s.Product.Id == productId);
         if (stock == null)
         {
@@ -87,7 +89,9 @@ public class StockService(Guid id, IProductService product, int amount) : IStock
                 stock.Product.Brand, 
                 (Category)stock.Product.Category,
                 stock.Product.Price, 
-                (PetType)stock.Product.PetType), 
-            stock.Amount);
+                (PetType)stock.Product.PetType,
+                connectionString), 
+            stock.Amount,
+            connectionString);
     }
 }

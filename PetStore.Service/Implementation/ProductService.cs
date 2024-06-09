@@ -13,98 +13,52 @@ public class ProductService(
     string brand,
     Category category,
     float price,
-    PetType petType)
+    PetType petType,
+    string connectionString)
     : IProductService
 {
     public Guid Id { get; } = id;
-    public string Name { get; } = name;
-    public string Description { get; } = description;
-    public string Brand { get; } = brand;
-    public Category Category { get; } = category;
-    public float Price { get; } = price;
-    public PetType PetType { get; } = petType;
+    public string Name { get; set; } = name;
+    public string Description { get; set; } = description;
+    public string Brand { get; set; } = brand;
+    public Category Category { get; set; } = category;
+    public float Price { get; set; } = price;
+    public PetType PetType { get; set; } = petType;
 
-    private readonly PetStoreDataContext _context = new();
+    private readonly PetStoreDataContext _context = new(connectionString);
     
     public void AddProduct()
     {
         _context.Products.InsertOnSubmit(new Product
         {
-            Id = id,
-            Name = name,
-            Description = description,
-            Brand = brand,
-            Category = (int)category,
-            Price = price,
-            PetType = (int)petType
+            Id = Id,
+            Name = Name,
+            Description = Description,
+            Brand = Brand,
+            Category = (int)Category,
+            Price = Price,
+            PetType = (int)PetType
         });
         _context.SubmitChanges();
     }
-    public void UpdateName(string name)
+    public void UpdateProduct()
     {
-    var product = _context.Products.First(p => p.Id == id);
+        var product = _context.Products.First(p => p.Id == Id);
         if (product == null)
         {
             throw new Exception("Product not found");
         }
-        product.Name = name;
-        _context.SubmitChanges();
-    }
-    public void UpdateDescription(string description)
-    {
-        var product = (from p in _context.Products
-            where p.Id == id
-            select p).First();
-        if (product == null)
-        {
-            throw new Exception("Product not found");
-        }
-        product.Description = description;
-        _context.SubmitChanges();
-    }
-    public void UpdateBrand(string brand)
-    {
-        var product = _context.Products.First(p => p.Id == id);
-        if (product == null)
-        {
-            throw new Exception("Product not found");
-        }
-        product.Brand = brand;
-        _context.SubmitChanges();
-    }
-    public void UpdateCategory(Category category)
-    {
-        var product = _context.Products.First(p => p.Id == id);
-        if (product == null)
-        {
-            throw new Exception("Product not found");
-        }
-        product.Category = (int)category;
-        _context.SubmitChanges();
-    }
-    public void UpdatePrice(float price)
-    {
-        var product = _context.Products.First(p => p.Id == id);
-        if (product == null)
-        {
-            throw new Exception("Product not found");
-        }
-        product.Price = price;
-        _context.SubmitChanges();
-    }
-    public void UpdatePetType(PetType petType)
-    {
-        var product = _context.Products.First(p => p.Id == id);
-        if (product == null)
-        {
-            throw new Exception("Product not found");
-        }
-        product.PetType = (int)petType;
+        product.Name = Name;
+        product.Description = Description;
+        product.Brand = Brand;
+        product.Category = (int)Category;
+        product.Price = Price;
+        product.PetType = (int)PetType;
         _context.SubmitChanges();
     }
     public void DeleteProduct()
     {
-        var product = _context.Products.First(p => p.Id == id);
+        var product = _context.Products.First(p => p.Id == Id);
         if (product == null)
         {
             throw new Exception("Product not found");
@@ -113,9 +67,9 @@ public class ProductService(
         _context.SubmitChanges();
     }
     
-    public static List<IProductService> GetProducts()
+    public static List<IProductService> GetProducts(string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var productServices = new List<IProductService>();
         foreach (var product in context.Products)
         {
@@ -126,13 +80,14 @@ public class ProductService(
                 product.Brand,
                 (Category)product.Category,
                 product.Price,
-                (PetType)product.PetType));
+                (PetType)product.PetType,
+                connectionString));
         }
         return productServices;
     }
-    public static IProductService GetProduct(Guid id)
+    public static IProductService GetProduct(Guid id, string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var product = context.Products.First(p => p.Id == id);
         if (product == null)
         {
@@ -145,6 +100,7 @@ public class ProductService(
             product.Brand,
             (Category)product.Category,
             product.Price,
-            (PetType)product.PetType);
+            (PetType)product.PetType,
+            connectionString);
     }
 }

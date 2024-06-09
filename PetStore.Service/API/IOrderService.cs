@@ -6,11 +6,11 @@ namespace PetStore.Service.API;
 
 public interface IOrderService
 {
-    public Guid Id { get; set; }
-    public List<IProductService> Products { get; set; }
-    public string PromoCode { get; set; }
-    public float ShippingCost { get; set; }
-    public float Total { get; set; }
+    public Guid Id { get; }
+    public List<IProductService> Products { get; }
+    public string PromoCode { get; }
+    public float ShippingCost { get; }
+    public float Total { get; }
 
     public void AddOrder();
 }

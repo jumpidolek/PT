@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PetStore.Service.Implementation;
 
 namespace PetStore.Model.Models.Users;
@@ -14,16 +10,16 @@ public class Supplier
     public string Address { get; set; }
     public string Name { get; set; }
     
-    public static void Add(Supplier c)
+    public static void Add(Supplier c, string connectionString)
     {
         Task.Run(() =>
-            new SupplierService(c.Id, c.Name, c.Address, c.Email, c.Phone).AddSupplier());
+            new SupplierService(c.Id, c.Name, c.Address, c.Email, c.Phone, connectionString).AddSupplier());
     }
-    public static Supplier Get(Guid id)
+    public static Supplier Get(Guid id, string connectionString)
     {
         return Task.Run(() =>
         {
-            var supplierService = SupplierService.GetSupplier(id);
+            var supplierService = SupplierService.GetSupplier(id, connectionString);
             return new Supplier
             {
                 Id = supplierService.Id,
@@ -34,11 +30,11 @@ public class Supplier
             };
         }).Result;
     }
-    public static List<Supplier> GetAll()
+    public static List<Supplier> GetAll(string connectionString)
     {
         return Task.Run(() =>
         {
-            var supplierServices = SupplierService.GetSuppliers();
+            var supplierServices = SupplierService.GetSuppliers(connectionString);
             return supplierServices.Select(supplierService => new Supplier
             {
                 Id = supplierService.Id,
@@ -49,20 +45,20 @@ public class Supplier
             }).ToList();
         }).Result;
     }
-    public static void ChangeAddress(Guid id, string address)
+
+    public static void Change(Supplier s, string connectionString)
     {
-        Task.Run(() => SupplierService.GetSupplier(id).UpdateAddress(address));
+        Task.Run(() =>
+        {
+            var supplier = SupplierService.GetSupplier(s.Id, connectionString);
+            supplier.Name = s.Name;
+            supplier.Phone = s.Phone;
+            supplier.Address = s.Address;
+            supplier.UpdateSupplier();
+        });
     }
-    public static void ChangePhone(Guid id, string phone)
+    public static void RemoveSupplier(Guid id, string connectionString)
     {
-        Task.Run(() => SupplierService.GetSupplier(id).UpdatePhone(phone));
-    }
-    public static void ChangeName(Guid id, string name)
-    {
-        Task.Run(() => SupplierService.GetSupplier(id).UpdateName(name));
-    }
-    public static void RemoveSupplier(Guid id)
-    {
-        Task.Run(() => SupplierService.GetSupplier(id).DeleteSupplier());
+        Task.Run(() => SupplierService.GetSupplier(id, connectionString).DeleteSupplier());
     }
 }

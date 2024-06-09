@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PetStore.Service.Implementation;
 
 namespace PetStore.Model.Models.Users;
@@ -18,18 +14,18 @@ public class Customer
 
     #region functions
 
-    public static void Add(Customer c)
+    public static void Add(Customer c, string connectionString)
     {
         Task.Run(() =>
-            new CustomerService(c.Id, c.FirstName, c.LastName, c.Address, c.Email, c.Phone, c.DateOfBirth).AddCustomer()
+            new CustomerService(c.Id, c.FirstName, c.LastName, c.Address, c.Email, c.Phone, c.DateOfBirth, connectionString).AddCustomer()
             );
     }
         
-    public static Customer Get(Guid id)
+    public static Customer Get(Guid id, string connectionString)
     {
         return Task.Run(() =>
         {
-            var customerService = CustomerService.GetCustomer(id);
+            var customerService = CustomerService.GetCustomer(id, connectionString);
             return new Customer
             {
                 Id = customerService.Id,
@@ -42,11 +38,11 @@ public class Customer
             };
         }).Result;
     }
-    public static List<Customer> GetAll()
+    public static List<Customer> GetAll(string connectionString)
     {
         return Task.Run(() =>
         {
-            var customerServices = CustomerService.GetCustomers();
+            var customerServices = CustomerService.GetCustomers(connectionString);
             return customerServices.Select(customerService => new Customer
             {
                 Id = customerService.Id,
@@ -59,17 +55,20 @@ public class Customer
             }).ToList();
         }).Result;
     }
-    public static void ChangeAddress(Guid id, string address)
+
+    public static void Change(Customer c, string connectionString)
     {
-        Task.Run(() => CustomerService.GetCustomer(id).UpdateAddress(address));
+        Task.Run(() =>
+        {
+            var customerService = CustomerService.GetCustomer(c.Id, connectionString);
+            customerService.Address = c.Address;
+            customerService.Phone = c.Phone;
+            customerService.UpdateCustomer();
+        });
     }
-    public static void ChangePhone(Guid id, string phone)
+    public static void Remove(Guid id, string connectionString)
     {
-        Task.Run(() => CustomerService.GetCustomer(id).UpdatePhone(phone));
-    }
-    public static void Remove(Guid id)
-    {
-        Task.Run(() => CustomerService.GetCustomer(id).DeleteCustomer());
+        Task.Run(() => CustomerService.GetCustomer(id, connectionString).DeleteCustomer());
     }
     
     #endregion

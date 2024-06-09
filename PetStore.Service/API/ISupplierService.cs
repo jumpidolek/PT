@@ -6,13 +6,11 @@ public interface ISupplierService
 {
     public Guid Id { get; }
     public string Email { get; }
-    public string Phone { get; }
-    public string Address { get; }
-    public string Name { get; }
+    public string Phone { get; set; }
+    public string Address { get; set; }
+    public string Name { get; set; }
     
     public void AddSupplier();
-    public void UpdatePhone(string phone);
-    public void UpdateAddress(string address);
-    public void UpdateName(string name);
+    public void UpdateSupplier();
     public void DeleteSupplier();
 }

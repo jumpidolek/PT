@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using PetStore.Model.Models.Inventory;
 using PetStore.Model.Models.Users;
 using PetStore.Service.API;
@@ -16,20 +13,20 @@ public class Shipment
     public List<Product> Products { get; set; }
     public Supplier Supplier { get; set; }
     
-    public static void Add(Shipment c)
+    public static void Add(Shipment c, string connectionString)
     {
         var productServices = new List<IProductService>();
         foreach (var product in c.Products)
         {
-            productServices.Add(new ProductService(product.Id, product.Name, product.Description, product.Brand, (Category)product.Category, product.Price, (PetType)product.PetType));
+            productServices.Add(new ProductService(product.Id, product.Name, product.Description, product.Brand, (Category)product.Category, product.Price, (PetType)product.PetType, connectionString));
         }
-        Task.Run(() => new ShipmentService(c.Id, productServices, new SupplierService(c.Supplier.Id, c.Supplier.Email, c.Supplier.Phone, c.Supplier.Address, c.Supplier.Name)).AddShipment());
+        Task.Run(() => new ShipmentService(c.Id, productServices, new SupplierService(c.Supplier.Id, c.Supplier.Email, c.Supplier.Phone, c.Supplier.Address, c.Supplier.Name, connectionString), connectionString).AddShipment());
     }
-    public static Shipment Get(Guid id)
+    public static Shipment Get(Guid id, string connectionString)
     {
         return Task.Run(() =>
         {
-            var shipmentService = ShipmentService.GetShipment(id);
+            var shipmentService = ShipmentService.GetShipment(id, connectionString);
             var products = new List<Product>();
             foreach (var productService in shipmentService.Products)
             {
@@ -59,11 +56,11 @@ public class Shipment
             };
         }).Result;
     }
-    public static List<Shipment> GetAll()
+    public static List<Shipment> GetAll(string connectionString)
     {
         return Task.Run(() =>
         {
-            var shipmentServices = ShipmentService.GetShipments();
+            var shipmentServices = ShipmentService.GetShipments(connectionString);
             var shipments = new List<Shipment>();
             foreach (var shipmentService in shipmentServices)
             {

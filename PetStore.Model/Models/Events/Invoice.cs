@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using PetStore.Model.Models.Inventory;
 using PetStore.Model.Models.Users;
 using PetStore.Service.API;
@@ -16,20 +13,20 @@ public class Invoice
     public Customer Customer { get; set; }
     public Order Order { get; set; }
     
-    public static void Add(Invoice c)
+    public static void Add(Invoice c, string connectionString)
     {
         var productServices = new List<IProductService>();
         foreach (var product in c.Order.Products)
         {
-            productServices.Add(new ProductService(product.Id, product.Name, product.Description, product.Brand, (Category)product.Category, product.Price, (PetType)product.PetType));
+            productServices.Add(new ProductService(product.Id, product.Name, product.Description, product.Brand, (Category)product.Category, product.Price, (PetType)product.PetType, connectionString));
         }
-        Task.Run(() => new InvoiceService(c.Id, new CustomerService(c.Customer.Id, c.Customer.FirstName, c.Customer.LastName, c.Customer.Address, c.Customer.Email, c.Customer.Phone, c.Customer.DateOfBirth), new OrderService(c.Order.Id, productServices, c.Order.PromoCode, c.Order.ShippingCost, c.Order.Total)).AddInvoice());
+        Task.Run(() => new InvoiceService(c.Id, new CustomerService(c.Customer.Id, c.Customer.Email, c.Customer.Phone, c.Customer.Address, c.Customer.FirstName, c.Customer.LastName, c.Customer.DateOfBirth, connectionString), new OrderService(c.Order.Id, productServices, c.Order.PromoCode, c.Order.ShippingCost, c.Order.Total, connectionString), connectionString).AddInvoice());
     }
-    public static Invoice Get(Guid id)
+    public static Invoice Get(Guid id, string connectionString)
     {
         return Task.Run(() =>
         {
-            var invoiceService = InvoiceService.GetInvoice(id);
+            var invoiceService = InvoiceService.GetInvoice(id, connectionString);
             var products = new List<Product>(); 
             foreach (var productService in invoiceService.Order.Products)
             {
@@ -68,11 +65,11 @@ public class Invoice
             };
         }).Result;
     }
-    public static List<Invoice> GetAll()
+    public static List<Invoice> GetAll(string connectionString)
     {
         return Task.Run(() =>
         {
-            var invoiceServices = InvoiceService.GetInvoices();
+            var invoiceServices = InvoiceService.GetInvoices(connectionString);
             var invoices = new List<Invoice>();
             foreach (var invoiceService in invoiceServices)
             {

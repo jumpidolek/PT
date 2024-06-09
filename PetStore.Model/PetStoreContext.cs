@@ -1,11 +1,11 @@
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using PetStore.Model.Models.Events;
 using PetStore.Model.Models.Inventory;
 using PetStore.Model.Models.Users;
 
 namespace PetStore.Model;
 
-public class PetStoreContext() : DbContext("Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;")
+public class PetStoreContext : DbContext
 {
     private DbSet<Customer> Customers { get; set; }
     private DbSet<Supplier> Suppliers { get; set; }
@@ -14,8 +14,12 @@ public class PetStoreContext() : DbContext("Server=localhost\\SQLEXPRESS;Databas
     private DbSet<Shipment> Shipments { get; set; }
     private DbSet<Order> Orders { get; set; }
     private DbSet<Invoice> Invoices { get; set; }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;");
+    }
 
     // "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;"
-
     // "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\Users\natik\RiderProjects\PT\PetStore.Test\Instrumentation\PetStore.mdf;Integrated Security=True"
 }

@@ -4,13 +4,11 @@ namespace PetStore.Service.API;
 
 public interface IStockService
 {
-    public Guid Id { get; set; }
-    public IProductService Product { get; set; }
+    public Guid Id { get; }
+    public IProductService Product { get; }
     public int Amount { get; set; }
     
     public void AddStock();
-    
-    public void UpdateAmount(int amount);
-    
+    public void UpdateStock();
     public void DeleteStock();
 }

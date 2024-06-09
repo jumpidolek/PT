@@ -4,9 +4,9 @@ namespace PetStore.Service.API;
 
 public interface IInvoiceService
 {
-    public Guid Id { get; set; }
-    public ICustomerService Customer { get; set; }
-    public IOrderService Order { get; set; }
+    public Guid Id { get; }
+    public ICustomerService Customer { get; }
+    public IOrderService Order { get; }
     
     public void AddInvoice();
 }

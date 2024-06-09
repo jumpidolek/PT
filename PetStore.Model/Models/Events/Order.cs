@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using PetStore.Model.Models.Inventory;
 using PetStore.Service.API;
 using PetStore.Service.Implementation;
@@ -17,20 +14,20 @@ public class Order
     public float ShippingCost { get; set; }
     public float Total { get; set; }
     
-    public static void Add(Order c)
+    public static void Add(Order c, string connectionString)
     {
         var productServices = new List<IProductService>();
         foreach (var product in c.Products)
         {
-            productServices.Add(new ProductService(product.Id, product.Name, product.Description, product.Brand, (Category)product.Category, product.Price, (PetType)product.PetType));
+            productServices.Add(new ProductService(product.Id, product.Name, product.Description, product.Brand, (Category)product.Category, product.Price, (PetType)product.PetType, connectionString));
         }
-        Task.Run(() => new OrderService(c.Id, productServices, c.PromoCode, c.ShippingCost, c.Total).AddOrder());
+        Task.Run(() => new OrderService(c.Id, productServices, c.PromoCode, c.ShippingCost, c.Total, connectionString).AddOrder());
     }
-    public static Order Get(Guid id)
+    public static Order Get(Guid id, string connectionString)
     {
         return Task.Run(() =>
         {
-            var orderService = OrderService.GetOrder(id);
+            var orderService = OrderService.GetOrder(id, connectionString);
             var products = new List<Product>();
             foreach (var productService in orderService.Products)
             {
@@ -55,11 +52,11 @@ public class Order
             };
         }).Result;
     }
-    public static List<Order> GetAll()
+    public static List<Order> GetAll(string connectionString)
     {
         return Task.Run(() =>
         {
-            var orderServices = OrderService.GetOrders();
+            var orderServices = OrderService.GetOrders(connectionString);
             var orders = new List<Order>();
             foreach (var orderService in orderServices)
             {

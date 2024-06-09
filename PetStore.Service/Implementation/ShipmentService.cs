@@ -7,23 +7,23 @@ using PetStore.Service.API;
 
 namespace PetStore.Service.Implementation;
 
-public class ShipmentService(Guid id, List<IProductService> products, ISupplierService supplier)
+public class ShipmentService(Guid id, List<IProductService> products, ISupplierService supplier, string connectionString)
     : IShipmentService
 {
-    public Guid Id { get; set; } = id;
-    public List<IProductService> Products { get; set; } = products;
-    public ISupplierService Supplier { get; set; } = supplier;
+    public Guid Id { get; } = id;
+    public List<IProductService> Products { get; } = products;
+    public ISupplierService Supplier { get; } = supplier;
 
-    private readonly PetStoreDataContext _context = new();
+    private readonly PetStoreDataContext _context = new(connectionString);
     
     public void AddShipment()
     {
         var shipment = new Shipment
         {
-            Id = id,
+            Id = Id,
             Products = []
         };
-        foreach (var product in products)
+        foreach (var product in Products)
         {
             shipment.Products.Add(new Product
             {
@@ -35,17 +35,17 @@ public class ShipmentService(Guid id, List<IProductService> products, ISupplierS
         }
         shipment.Supplier = new Supplier
         {
-            Id = supplier.Id,
-            Name = supplier.Name,
-            Email = supplier.Email,
-            Phone = supplier.Phone,
-            Address = supplier.Address
+            Id = Supplier.Id,
+            Name = Supplier.Name,
+            Email = Supplier.Email,
+            Phone = Supplier.Phone,
+            Address = Supplier.Address
         };
         _context.Shipments.InsertOnSubmit(shipment);
         _context.SubmitChanges();
     }
     
-    public static List<IShipmentService> GetShipments()
+    public static List<IShipmentService> GetShipments(string connectionString)
     {
         var shipments = new List<IShipmentService>();
         var context = new PetStoreDataContext();
@@ -63,14 +63,15 @@ public class ShipmentService(Guid id, List<IProductService> products, ISupplierS
                     product.Brand, 
                     (Category)product.Category, 
                     product.Price, 
-                    (PetType)product.PetType));
+                    (PetType)product.PetType,
+                    connectionString));
             }
-            var supplier = new SupplierService(shipment.Supplier.Id, shipment.Supplier.Email, shipment.Supplier.Phone, shipment.Supplier.Address, shipment.Supplier.Name);
-            shipments.Add(new ShipmentService(shipment.Id, products, supplier));
+            var supplier = new SupplierService(shipment.Supplier.Id, shipment.Supplier.Email, shipment.Supplier.Phone, shipment.Supplier.Address, shipment.Supplier.Name, connectionString);
+            shipments.Add(new ShipmentService(shipment.Id, products, supplier, connectionString));
         }
         return shipments;
     }
-    public static IShipmentService GetShipment(Guid id)
+    public static IShipmentService GetShipment(Guid id, string connectionString)
     {
         var context = new PetStoreDataContext();
         var shipment = (from s in context.Shipments
@@ -86,9 +87,10 @@ public class ShipmentService(Guid id, List<IProductService> products, ISupplierS
                 product.Brand, 
                 (Category)product.Category, 
                 product.Price, 
-                (PetType)product.PetType));
+                (PetType)product.PetType,
+                connectionString));
         }
-        var supplier = new SupplierService(shipment.Supplier.Id, shipment.Supplier.Email, shipment.Supplier.Phone, shipment.Supplier.Address, shipment.Supplier.Name);
-        return new ShipmentService(shipment.Id, products, supplier);
+        var supplier = new SupplierService(shipment.Supplier.Id, shipment.Supplier.Email, shipment.Supplier.Phone, shipment.Supplier.Address, shipment.Supplier.Name, connectionString);
+        return new ShipmentService(shipment.Id, products, supplier, connectionString);
     }
 }

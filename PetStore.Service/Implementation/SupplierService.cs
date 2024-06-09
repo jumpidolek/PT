@@ -6,64 +6,44 @@ using PetStore.Service.API;
 
 namespace PetStore.Service.Implementation;
 
-public class SupplierService(Guid id, string email, string phone, string address, string name)
+public class SupplierService(Guid id, string email, string phone, string address, string name, string connectionString)
     : ISupplierService
 {
     public Guid Id { get; } = id;
     public string Email { get; } = email;
-    public string Phone { get; } = phone;
-    public string Address { get; } = address;
-    public string Name { get; } = name;
+    public string Phone { get; set; } = phone;
+    public string Address { get; set; } = address;
+    public string Name { get; set; } = name;
 
-    private readonly PetStoreDataContext _context = new();
+    private readonly PetStoreDataContext _context = new(connectionString);
     
     public void AddSupplier()
     {
         _context.Suppliers.InsertOnSubmit(new Supplier
         {
-            Id = id,
-            Email = email,
-            Phone = phone,
-            Address = address,
-            Name = name
+            Id = Id,
+            Email = Email,
+            Phone = Phone,
+            Address = Address,
+            Name = Name
         });
         _context.SubmitChanges();
     }
-    public void UpdatePhone(string phone)
+    public void UpdateSupplier()
     {
-        var supplier = _context.Suppliers.First(s => s.Id == id);
+        var supplier = _context.Suppliers.First(s => s.Id == Id);
         if (supplier == null)
         {
             throw new Exception("Supplier not found");
         }
-        supplier.Phone = phone;
-        _context.SubmitChanges();
-    }
-    public void UpdateAddress(string address)
-    {
-        var supplier = (from s in _context.Suppliers
-            where s.Id == id
-            select s).First();
-        if (supplier == null)
-        {
-            throw new Exception("Supplier not found");
-        }
-        supplier.Address = address;
-        _context.SubmitChanges();
-    }
-    public void UpdateName(string name)
-    {
-        var supplier = _context.Suppliers.First(s => s.Id == id);
-        if (supplier == null)
-        {
-            throw new Exception("Supplier not found");
-        }
-        supplier.Name = name;
+        supplier.Phone = Phone;
+        supplier.Address = Address;
+        supplier.Name = Name;
         _context.SubmitChanges();
     }
     public void DeleteSupplier()
     {
-        var supplier = _context.Suppliers.First(s => s.Id == id);
+        var supplier = _context.Suppliers.First(s => s.Id == Id);
         if (supplier == null)
         {
             throw new Exception("Supplier not found");
@@ -72,24 +52,24 @@ public class SupplierService(Guid id, string email, string phone, string address
         _context.SubmitChanges();
     }
     
-    public static List<ISupplierService> GetSuppliers()
+    public static List<ISupplierService> GetSuppliers(string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var suppliers = new List<ISupplierService>();
         foreach (var supplier in context.Suppliers)
         {
-            suppliers.Add(new SupplierService(supplier.Id, supplier.Email, supplier.Phone, supplier.Address, supplier.Name));
+            suppliers.Add(new SupplierService(supplier.Id, supplier.Email, supplier.Phone, supplier.Address, supplier.Name, connectionString));
         }
         return suppliers;
     }
-    public static ISupplierService GetSupplier(Guid id)
+    public static ISupplierService GetSupplier(Guid id, string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var supplier = context.Suppliers.First(s => s.Id == id);
         if (supplier == null)
         {
             throw new Exception("Supplier not found");
         }
-        return new SupplierService(supplier.Id, supplier.Email, supplier.Phone, supplier.Address, supplier.Name);
+        return new SupplierService(supplier.Id, supplier.Email, supplier.Phone, supplier.Address, supplier.Name, connectionString);
     }
 }

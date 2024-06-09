@@ -13,58 +13,49 @@ public class CustomerService(
     string address,
     string firstName,
     string lastName,
-    DateTime dateOfBirth)
+    DateTime dateOfBirth,
+    string connectionString)
     : ICustomerService
 {
     public Guid Id { get; } = id;
     public string Email { get; } = email;
-    public string Phone { get; } = phone;
-    public string Address { get; } = address;
+    public string Phone { get; set; } = phone;
+    public string Address { get; set; } = address;
     public string FirstName { get; } = firstName;
     public string LastName { get; } = lastName;
     public DateTime DateOfBirth { get; } = dateOfBirth;
 
-    private readonly PetStoreDataContext _context = new();
+    private readonly PetStoreDataContext _context = new(connectionString);
     
     public void AddCustomer()
     {
         _context.Customers.InsertOnSubmit(new Customer
         {
-            Id = id,
-            Email = email,
-            Phone = phone,
-            Address = address,
-            FirstName = firstName,
-            LastName = lastName,
-            DateOfBirth = dateOfBirth
+            Id = Id,
+            Email = Email,
+            Phone = Phone,
+            Address = Address,
+            FirstName = FirstName,
+            LastName = LastName,
+            DateOfBirth = DateOfBirth
         });
         _context.SubmitChanges();
     }
-    public void UpdatePhone(string phone)
+
+    public void UpdateCustomer()
     {
-        var customer = _context.Customers.First(c => c.Id == id);
+        var customer = _context.Customers.First(c => c.Id == Id);
         if (customer == null)
         {
             throw new Exception("Customer not found");
         }
-        customer.Phone = phone;
-        _context.SubmitChanges();
-    }
-    public void UpdateAddress(string address)
-    {
-        var customer = (from c in _context.Customers
-            where c.Id == id
-            select c).First();
-        if (customer == null)
-        {
-            throw new Exception("Customer not found");
-        }
-        customer.Address = address;
+        customer.Phone = Phone;
+        customer.Address = Address;
         _context.SubmitChanges();
     }
     public void DeleteCustomer()
     {
-        var customer = _context.Customers.First(c => c.Id == id);
+        var customer = _context.Customers.First(c => c.Id == Id);
         if (customer == null)
         {
             throw new Exception("Customer not found");
@@ -73,9 +64,9 @@ public class CustomerService(
         _context.SubmitChanges();
     }
     
-    public static List<ICustomerService> GetCustomers()
+    public static List<ICustomerService> GetCustomers(string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         return
         [
             ..(from c in context.Customers
@@ -86,12 +77,13 @@ public class CustomerService(
                     c.Address,
                     c.FirstName,
                     c.LastName,
-                    c.DateOfBirth)).ToList()
+                    c.DateOfBirth,
+                    connectionString)).ToList()
         ];
     }
-    public static ICustomerService GetCustomer(Guid id)
+    public static ICustomerService GetCustomer(Guid id, string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var customer = context.Customers.First(c => c.Id == id);
         if (customer == null)
         {
@@ -104,6 +96,7 @@ public class CustomerService(
             customer.Address,
             customer.FirstName,
             customer.LastName,
-            customer.DateOfBirth);
+            customer.DateOfBirth,
+            connectionString);
     }
 }

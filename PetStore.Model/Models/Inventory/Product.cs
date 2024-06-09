@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PetStore.Service.Implementation;
 
 namespace PetStore.Model.Models.Inventory;
@@ -16,15 +12,15 @@ public class Product
     public float Price { get; set; }
     public PetType PetType { get; set; }
     
-    public static void Add(Product c)
+    public static void Add(Product c, string connectionString)
     {
-        Task.Run(() => new ProductService(c.Id, c.Name, c.Description, c.Brand, (Service.API.Category)c.Category, c.Price, (Service.API.PetType)c.PetType).AddProduct());
+        Task.Run(() => new ProductService(c.Id, c.Name, c.Description, c.Brand, (Service.API.Category)c.Category, c.Price, (Service.API.PetType)c.PetType, connectionString).AddProduct());
     }
-    public static Product Get(Guid id)
+    public static Product Get(Guid id, string connectionString)
     {
         return Task.Run(() =>
         {
-            var productService = ProductService.GetProduct(id);
+            var productService = ProductService.GetProduct(id, connectionString);
             return new Product
             {
                 Id = productService.Id,
@@ -37,11 +33,11 @@ public class Product
             };
         }).Result;
     }
-    public static List<Product> GetAll()
+    public static List<Product> GetAll(string connectionString)
     {
         return Task.Run(() =>
         {
-            var productServices = ProductService.GetProducts();
+            var productServices = ProductService.GetProducts(connectionString);
             return productServices.Select(productService => new Product
             {
                 Id = productService.Id,
@@ -54,32 +50,23 @@ public class Product
             }).ToList();
         }).Result;
     }
-    public static void ChangeName(Guid id, string name)
+
+    public static void Change(Product p, string connectionString)
     {
-        Task.Run(() => ProductService.GetProduct(id).UpdateName(name));
+        Task.Run(() =>
+        {
+            var product = ProductService.GetProduct(p.Id, connectionString);
+            product.Name = p.Name;
+            product.Description = p.Description;
+            product.Brand = p.Brand;
+            product.Category = (Service.API.Category)p.Category;
+            product.Price = p.Price;
+            product.PetType = (Service.API.PetType)p.PetType;
+            product.UpdateProduct();
+        });
     }
-    public static void ChangeDescription(Guid id, string description)
+    public static void RemoveProduct(Guid id, string connectionString)
     {
-        Task.Run(() => ProductService.GetProduct(id).UpdateDescription(description));
-    }
-    public static void ChangeBrand(Guid id, string brand)
-    {
-        Task.Run(() => ProductService.GetProduct(id).UpdateBrand(brand));
-    }
-    public static void ChangeCategory(Guid id, Category category)
-    {
-        Task.Run(() => ProductService.GetProduct(id).UpdateCategory((Service.API.Category)category));
-    }
-    public static void ChangePrice(Guid id, float price)
-    {
-        Task.Run(() => ProductService.GetProduct(id).UpdatePrice(price));
-    }
-    public static void ChangePetType(Guid id, PetType petType)
-    {
-        Task.Run(() => ProductService.GetProduct(id).UpdatePetType((Service.API.PetType)petType));
-    }
-    public static void RemoveProduct(Guid id)
-    {
-        Task.Run(() => ProductService.GetProduct(id).DeleteProduct());
+        Task.Run(() => ProductService.GetProduct(id, connectionString).DeleteProduct());
     }
 }

@@ -6,13 +6,13 @@ using PetStore.Service.API;
 
 namespace PetStore.Service.Implementation;
 
-public class InvoiceService(Guid id, ICustomerService customer, IOrderService order) : IInvoiceService
+public class InvoiceService(Guid id, ICustomerService customer, IOrderService order, string connectionString) : IInvoiceService
 {
-    public Guid Id { get; set; } = id;
-    public ICustomerService Customer { get; set; } = customer;
-    public IOrderService Order { get; set; } = order;
+    public Guid Id { get; } = id;
+    public ICustomerService Customer { get; } = customer;
+    public IOrderService Order { get; } = order;
 
-    private readonly PetStoreDataContext _context = new();
+    private readonly PetStoreDataContext _context = new(connectionString);
 
     public void AddInvoice()
     {
@@ -24,14 +24,14 @@ public class InvoiceService(Guid id, ICustomerService customer, IOrderService or
         }
         _context.Invoices.InsertOnSubmit(new Invoice
         {
-            Id = id,
+            Id = Id,
             Customer = customer,
             Order = order
         });
         _context.SubmitChanges();
     }
     
-    public static List<IInvoiceService> GetInvoices()
+    public static List<IInvoiceService> GetInvoices(string connectionString)
     {
         var context = new PetStoreDataContext();
         var invoices = context.Invoices.ToList();
@@ -47,7 +47,8 @@ public class InvoiceService(Guid id, ICustomerService customer, IOrderService or
                     product.Brand, 
                     (Category)product.Category, 
                     product.Price, 
-                    (PetType)product.PetType));
+                    (PetType)product.PetType,
+                    connectionString));
             }
             invoiceServices.Add(new InvoiceService(invoice.Id,
                 new CustomerService(invoice.Customer.Id,
@@ -56,17 +57,20 @@ public class InvoiceService(Guid id, ICustomerService customer, IOrderService or
                     invoice.Customer.Address,
                     invoice.Customer.FirstName,
                     invoice.Customer.LastName,
-                    invoice.Customer.DateOfBirth),
+                    invoice.Customer.DateOfBirth,
+                    connectionString),
                 new OrderService(invoice.Order.Id,
                     products,
                     invoice.Order.PromoCode,
                     invoice.Order.ShippingCost,
-                    invoice.Order.Total)));
+                    invoice.Order.Total,
+                    connectionString),
+                connectionString));
         }
         return invoiceServices;
     }
     
-    public static IInvoiceService GetInvoice(Guid id)
+    public static IInvoiceService GetInvoice(Guid id, string connectionString)
     {
         var context = new PetStoreDataContext();
         var invoice = context.Invoices.First(i => i.Id == id);
@@ -83,7 +87,8 @@ public class InvoiceService(Guid id, ICustomerService customer, IOrderService or
                 product.Brand, 
                 (Category)product.Category, 
                 product.Price, 
-                (PetType)product.PetType));
+                (PetType)product.PetType,
+                connectionString));
         }
         return new InvoiceService(invoice.Id, 
             new CustomerService(
@@ -93,12 +98,15 @@ public class InvoiceService(Guid id, ICustomerService customer, IOrderService or
                 invoice.Customer.Address, 
                 invoice.Customer.FirstName, 
                 invoice.Customer.LastName, 
-                invoice.Customer.DateOfBirth), 
+                invoice.Customer.DateOfBirth,
+                connectionString), 
             new OrderService(
                 invoice.Order.Id, 
                 products, 
                 invoice.Order.PromoCode, 
                 invoice.Order.ShippingCost, 
-                invoice.Order.Total));
+                invoice.Order.Total,
+                connectionString),
+            connectionString);
     }
 }
