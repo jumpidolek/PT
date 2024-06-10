@@ -1,5 +1,4 @@
-﻿using PetStore.Model;
-using PetStore.ViewModel;
+﻿using PetStore.ViewModel;
 using PetStore.ViewModel.Repository;
 
 namespace PetStore.View

@@ -1,5 +1,4 @@
-﻿using PetStore.Data;
-using PetStore.Service.Implementation;
+﻿using PetStore.Service.Implementation;
 using PetStore.Service.API;
 
 namespace ServiceTest;
