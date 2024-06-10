@@ -17,9 +17,9 @@ public class PetStoreContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\natik\\RiderProjects\\PT\\PetStore.Test\\Instrumentation\\PetStore.mdf;Integrated Security=True");
     }
 
-    // "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;"
+    // "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;TrustServerCertificate=True;"
     // "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\Users\natik\RiderProjects\PT\PetStore.Test\Instrumentation\PetStore.mdf;Integrated Security=True"
 }
