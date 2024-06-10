@@ -1,28 +1,30 @@
 using System.Windows.Input;
+using PetStore.Model;
 using PetStore.Model.Models.Users;
 using PetStore.ViewModel.Commands;
+using PetStore.ViewModel.Repository;
 
 namespace PetStore.ViewModel;
 
 public sealed class MainViewModel : ViewModelBase
 {
-    private const string ConnectionString = "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;TrustServerCertificate=True";
-    private readonly List<Customer> _customers;
+    private readonly IDataRepository _repository;
     
-    public MainViewModel(List<Customer> customers = null)
+    public MainViewModel( IDataRepository repository )
     {
+        _repository = repository;
+        _listObjects = _repository.Customers;
         ChangeModeCommand = new RelayCommand(ChangeMode);
         SaveChangesCommand = new RelayCommand(SaveChanges);
-        _customers = customers;
     }
     
     #region values
 
-    private List<Customer> _listObjects = [];
+    private List<Customer> _listObjects;
     public List<Customer> ListObjects
     {
-        get => _listObjects = _customers ?? Customer.GetAll(ConnectionString);
-        set => SetField(ref _listObjects, value);
+        get => _listObjects;
+        set => SetField(ref _listObjects, value);   
     }
     
     private Customer _selectedObject;
@@ -72,11 +74,26 @@ public sealed class MainViewModel : ViewModelBase
     public ICommand SaveChangesCommand { get; set; }
     private void SaveChanges(object obj)
     {
-        if (IsEnabled) Customer.Change(SelectedObject, ConnectionString);
+        if (IsEnabled)
+        {
+            if (_repository.GetConnectionString() == "")
+                _repository.Customers[_repository.Customers.IndexOf(SelectedObject)] = SelectedObject;
+            else
+                Customer.Change(SelectedObject, _repository.GetConnectionString());
+            
+        }
         else
         {
-            Customer.Add(SelectedObject, ConnectionString);
-            ListObjects = Customer.GetAll(ConnectionString);
+            if (_repository.GetConnectionString() == "")
+            {
+                _repository.Customers.Add(SelectedObject);
+                ListObjects = _repository.Customers;
+            }
+            else
+            {
+                Customer.Add(SelectedObject, _repository.GetConnectionString());
+                ListObjects = Customer.GetAll(_repository.GetConnectionString());
+            }
         }
     }
      

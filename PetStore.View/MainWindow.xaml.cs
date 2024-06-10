@@ -1,4 +1,6 @@
-﻿using PetStore.ViewModel;
+﻿using PetStore.Model;
+using PetStore.ViewModel;
+using PetStore.ViewModel.Repository;
 
 namespace PetStore.View
 {
@@ -9,8 +11,10 @@ namespace PetStore.View
     {
         public MainWindow()
         {
-            InitializeComponent();
-            DataContext = new MainViewModel();
+            InitializeComponent(); 
+            const string connectionString = "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;TrustServerCertificate=True";
+            IDataRepository repository = new DataRepository(connectionString);
+            DataContext = new MainViewModel(repository);
         }
     }
 }
