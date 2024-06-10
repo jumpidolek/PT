@@ -17,7 +17,7 @@ public class Customer
     public static void Add(Customer c, string connectionString)
     {
         Task.Run(() =>
-            new CustomerService(c.Id, c.FirstName, c.LastName, c.Address, c.Email, c.Phone, c.DateOfBirth, connectionString).AddCustomer()
+            new CustomerService(c.Id, c.Email, c.Phone, c.Address, c.FirstName, c.LastName, c.DateOfBirth, connectionString).AddCustomer()
             );
     }
         

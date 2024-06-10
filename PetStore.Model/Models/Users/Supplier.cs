@@ -13,7 +13,7 @@ public class Supplier
     public static void Add(Supplier c, string connectionString)
     {
         Task.Run(() =>
-            new SupplierService(c.Id, c.Name, c.Address, c.Email, c.Phone, connectionString).AddSupplier());
+            new SupplierService(c.Id, c.Email, c.Phone, c.Address, c.Name, connectionString).AddSupplier());
     }
     public static Supplier Get(Guid id, string connectionString)
     {
