@@ -32,7 +32,7 @@ public class OrderService(Guid id, List<IProductService> products, string promoC
     
     public static List<IOrderService> GetOrders(string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var orders = context.Orders.ToList();
         var orderServices = new List<IOrderService>();
         foreach (var order in orders)
@@ -64,7 +64,7 @@ public class OrderService(Guid id, List<IProductService> products, string promoC
     }
     public static IOrderService GetOrder(Guid id, string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var order = context.Orders.First(o => o.Id == id);
         if (order == null)
         {

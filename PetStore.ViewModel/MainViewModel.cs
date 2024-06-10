@@ -6,7 +6,7 @@ namespace PetStore.ViewModel;
 
 public sealed class MainViewModel : ViewModelBase
 {
-    private const string ConnectionString = "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;";
+    private const string ConnectionString = "Server=localhost\\SQLEXPRESS;Database=PetStore;Trusted_Connection=True;TrustServerCertificate=True";
     private readonly List<Customer> _customers;
     
     public MainViewModel(List<Customer> customers = null)
@@ -79,6 +79,6 @@ public sealed class MainViewModel : ViewModelBase
             ListObjects = Customer.GetAll(ConnectionString);
         }
     }
-    
+     
     #endregion
 }

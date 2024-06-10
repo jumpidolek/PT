@@ -33,7 +33,7 @@ public class InvoiceService(Guid id, ICustomerService customer, IOrderService or
     
     public static List<IInvoiceService> GetInvoices(string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var invoices = context.Invoices.ToList();
         var invoiceServices = new List<IInvoiceService>();
         foreach (var invoice in invoices)
@@ -72,7 +72,7 @@ public class InvoiceService(Guid id, ICustomerService customer, IOrderService or
     
     public static IInvoiceService GetInvoice(Guid id, string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var invoice = context.Invoices.First(i => i.Id == id);
         if (invoice == null)
         {

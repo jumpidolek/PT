@@ -48,7 +48,7 @@ public class ShipmentService(Guid id, List<IProductService> products, ISupplierS
     public static List<IShipmentService> GetShipments(string connectionString)
     {
         var shipments = new List<IShipmentService>();
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var shipmentQuery = from s in context.Shipments
             select s;
         foreach (var shipment in shipmentQuery)
@@ -73,7 +73,7 @@ public class ShipmentService(Guid id, List<IProductService> products, ISupplierS
     }
     public static IShipmentService GetShipment(Guid id, string connectionString)
     {
-        var context = new PetStoreDataContext();
+        var context = new PetStoreDataContext(connectionString);
         var shipment = (from s in context.Shipments
             where s.Id == id
             select s).First();

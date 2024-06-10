@@ -52,13 +52,7 @@ namespace PetStore.Data
     partial void UpdateCurrentStock(CurrentStock instance);
     partial void DeleteCurrentStock(CurrentStock instance);
     #endregion
-		
-		public PetStoreDataContext() : 
-				base(global::PetStore.Data.Properties.Settings.Default.PetStoreConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
+    
 		public PetStoreDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
