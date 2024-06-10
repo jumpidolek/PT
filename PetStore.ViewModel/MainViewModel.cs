@@ -79,8 +79,12 @@ public sealed class MainViewModel : ViewModelBase
             if (_repository.GetConnectionString() == "")
                 _repository.Customers[_repository.Customers.IndexOf(SelectedObject)] = SelectedObject;
             else
+            {
                 Customer.Change(SelectedObject, _repository.GetConnectionString());
-            
+                _repository.Customers = Customer.GetAll(_repository.GetConnectionString());
+                ListObjects = _repository.Customers;
+            }
+                
         }
         else
         {
@@ -92,7 +96,8 @@ public sealed class MainViewModel : ViewModelBase
             else
             {
                 Customer.Add(SelectedObject, _repository.GetConnectionString());
-                ListObjects = Customer.GetAll(_repository.GetConnectionString());
+                _repository.Customers = Customer.GetAll(_repository.GetConnectionString());
+                ListObjects = _repository.Customers;
             }
         }
     }

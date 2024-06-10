@@ -44,7 +44,7 @@ public class CustomerService(
 
     public void UpdateCustomer()
     {
-        var customer = _context.Customers.First(c => c.Id == Id);
+        var customer = _context.Customers.Where(c => c.Id == Id).Select(x => x).First();
         if (customer == null)
         {
             throw new Exception("Customer not found");
@@ -55,7 +55,9 @@ public class CustomerService(
     }
     public void DeleteCustomer()
     {
-        var customer = _context.Customers.First(c => c.Id == Id);
+        var customer = (from c in _context.Customers
+                        where c.Id == Id
+                        select c).First();
         if (customer == null)
         {
             throw new Exception("Customer not found");
