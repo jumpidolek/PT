@@ -24,4 +24,11 @@
     <ProjectReference Include="..\PetStore.Service\PetStore.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Instrumentation\PetStoreServiceTest.mdf" />
+    <Content Include="Instrumentation\PetStoreServiceTest.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
